@@ -1,0 +1,27 @@
+{
+  "name": "@tv2media/logger",
+  "version": "1.0.0",
+  "description": "Logging framework for tv2 mediatech",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": {
+    "name": "Anders Frederik Jørgensen",
+    "email": "afjo@tv2.dk"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "bundle": "yarn build && yarn pack",
+    "test": "jest --coverage=true __tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.7",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
+  }
+}
