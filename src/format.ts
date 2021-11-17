@@ -19,15 +19,15 @@ export type FormatOptions<T> = {
   format: Formatter<T>
 })
 
-export function executeFormat<T>(log: Log, options: FormatOptions<T>) {
+export function applyFormat<T>(log: Log, options: FormatOptions<T>) {
   switch (options.kind) {
-    case Format.JSON: return executeJSONFormat(log, options)
-    case Format.PLAINTEXT: return executePLAINTEXTFormat(log, options)
+    case Format.JSON: return applyJSONFormat(log, options)
+    case Format.PLAINTEXT: return applyPLAINTEXTFormat(log, options)
     case Format.CUSTOM: return options.format(log, options)
   }
 }
 
-function executeJSONFormat<T>(log: Log, options: FormatOptions<T>) {
+function applyJSONFormat<T>(log: Log, options: FormatOptions<T>) {
   const timestamp = options.timestamp ?? false
   return stringify({
     ...log,
@@ -36,7 +36,7 @@ function executeJSONFormat<T>(log: Log, options: FormatOptions<T>) {
   }, { depth: options.depth ?? -1n })
 }
 
-function executePLAINTEXTFormat<T>(log: any, options: FormatOptions<T>) {
+function applyPLAINTEXTFormat<T>(log: any, options: FormatOptions<T>) {
   const timestamp = options.timestamp ?? false
   return `[${LogLevel[log.level].toLowerCase()}]${timestamp ? '[' + Date.now() + ']' : ''}: ${log.data}`
 }

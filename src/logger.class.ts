@@ -1,7 +1,7 @@
 import { LogContext } from './log-context.class'
 import { ILogger } from './logger.interface'
 import { isValidLogLevel, LogLevel } from './log-level'
-import { Format, executeFormat, FormatOptions } from './format'
+import { Format, applyFormat, FormatOptions } from './format'
 import { createVault, IVault, Vault, VaultOptions } from './vault'
 
 export type LoggerOptions<LogFormat> = {
@@ -65,7 +65,7 @@ export class Logger<LogFormat> implements ILogger {
     if (!isValidLogLevel(level, this.options.level)) {
       return
     }
-    const result = executeFormat({ data, level, ...meta }, this.options.format) as LogFormat
+    const result = applyFormat({ data, level, ...meta }, this.options.format) as LogFormat
     this.vault.store(result)
   }
 }
