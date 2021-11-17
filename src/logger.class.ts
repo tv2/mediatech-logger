@@ -12,7 +12,7 @@ export type LoggerOptions<LogFormat> = {
 export class Logger<LogFormat> implements ILogger {
 
   private options: LoggerOptions<LogFormat>
-  private vault: IVault<LogFormat>
+  private vault: IVault<LogFormat | string>
 
   constructor(options: Partial<LoggerOptions<LogFormat>>) {
     this.options = { 
@@ -41,31 +41,31 @@ export class Logger<LogFormat> implements ILogger {
     return logContext.tag(tag)
   }
 
-  error(data: any, meta: object = {}) {
+  error(data: any, meta: object = {}): void {
     this.log(data, LogLevel.Error, meta)
   }
 
-  warn(data: any, meta: object = {}) {
+  warn(data: any, meta: object = {}): void {
     this.log(data, LogLevel.Warn, meta)
   }
 
-  info(data: any, meta: object = {}) {
+  info(data: any, meta: object = {}): void {
     this.log(data, LogLevel.Info, meta)
   }
 
-  debug(data: any, meta: object = {}) {
+  debug(data: any, meta: object = {}): void {
     this.log(data, LogLevel.Debug, meta)
   }
 
-  trace(data: any, meta: object = {}) {
+  trace(data: any, meta: object = {}): void {
     this.log(data, LogLevel.Trace, meta)
   }
 
-  private log(data: any, level: LogLevel, meta: object = {}) {
+  private log(data: any, level: LogLevel, meta: object = {}): void {
     if (!isValidLogLevel(level, this.options.level)) {
       return
     }
-    const result = applyFormat({ data, level, ...meta }, this.options.format) as LogFormat
+    const result = applyFormat({ data, level, ...meta }, this.options.format)
     this.vault.store(result)
   }
 }

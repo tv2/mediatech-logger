@@ -15,27 +15,27 @@ export class LogContext<Logger extends ILogger> implements ILogger {
       return this
     }
   
-    error(message: any, meta: object = {}) {
+    error(message: any, meta: object = {}): void {
       this.meta = { ...this.meta, ...meta }
       this.logger.error(message, this.meta)
     }
   
-    warn(message: any, meta: object = {}) {
+    warn(message: any, meta: object = {}): void {
       this.meta = { ...this.meta, ...meta }
       this.logger.warn(message, this.meta)
     }
   
-    info(message: any, meta: object = {}) {
+    info(message: any, meta: object = {}): void {
       this.meta = { ...this.meta, ...meta }
       this.logger.info(message, this.meta)
     }
   
-    debug(message: any, meta: object = {}) {
+    debug(message: any, meta: object = {}): void {
       this.meta = { ...this.meta, ...meta }
       this.logger.debug(message, this.meta)
     }
   
-    trace(message: any, meta: object = {}) {
+    trace(message: any, meta: object = {}): void {
       this.meta = { ...this.meta, ...meta }
       this.logger.trace(message, this.meta)
     }

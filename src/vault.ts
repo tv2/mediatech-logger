@@ -11,7 +11,7 @@ export enum Vault {
     Console
 }
 
-export function createVault(options: VaultOptions) {
+export function createVault<T>(options: VaultOptions): IVault<T> {
     switch (options.kind) {
         case Vault.Console: return new ConsoleVault(options)
     }
