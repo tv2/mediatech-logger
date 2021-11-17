@@ -1,79 +1,71 @@
-import { isDevelop } from "./environment"
 import { LogContext } from './log-context.class'
 import { ILogger } from './logger.interface'
-import { LogLevels } from "./logLevels"
+import { isValidLogLevel, LogLevel } from './log-level'
+import { Format, executeFormat, FormatOptions } from './format'
+import { createVault, IVault, Vault, VaultOptions } from './vault'
 
-enum DefaultFormat {
-  json,
-  plaintext,
+export type LoggerOptions<LogFormat> = {
+  level: LogLevel
+  format: FormatOptions<LogFormat>
+  vault: VaultOptions
 }
+export class Logger<LogFormat> implements ILogger {
 
-export type LoggerOptions = {
-  level: LogLevels
-  format: Format
-  time: boolean
-  colour: boolean
-  depth: number
-}
+  private options: LoggerOptions<LogFormat>
+  private vault: IVault<LogFormat>
 
-type Format = DefaultFormat | (() => void)
-
-const defaultOptions: LoggerOptions = {
-  level: LogLevels.debug,
-  format: DefaultFormat.json,
-  time: true,
-  colour: false,
-  depth: 3
-}
-class Logger implements ILogger {
-
-  private options: LoggerOptions
-
-  constructor(options: Partial<LoggerOptions>) {
-    this.options = { ...defaultOptions, ...options }
+  constructor(options: Partial<LoggerOptions<LogFormat>>) {
+    this.options = { 
+      ...{
+        level: LogLevel.Debug,
+        format: {
+          kind: Format.JSON,
+          depth: 3n,
+        },
+        vault: {
+          kind: Vault.Console,
+        }
+      },
+       ...options
+    }
+    this.vault = createVault(this.options.vault)
   }
 
-  tag(tag: string): ILogger {
-    const logContext = new LogContext<Logger>(this)
+  /**
+   * Adds a tag to a log context.
+   * @param tag The tag to add to meta
+   * @returns A log context with the tag
+   */
+  tag(tag: string): LogContext<Logger<LogFormat>> {
+    const logContext = new LogContext<Logger<LogFormat>>(this)
     return logContext.tag(tag)
   }
 
-  error(data: any) {
-    this.log(data, LogLevels.error)
+  error(data: any, meta: object = {}) {
+    this.log(data, LogLevel.Error, meta)
   }
 
-  warn(data: any) {
-    this.log(data, LogLevels.warning)
+  warn(data: any, meta: object = {}) {
+    this.log(data, LogLevel.Warn, meta)
   }
 
   info(data: any, meta: object = {}) {
-    this.log(data, LogLevels.info, meta)
+    this.log(data, LogLevel.Info, meta)
   }
 
-  debug(data: any) {
-    this.log(data, LogLevels.debug)
+  debug(data: any, meta: object = {}) {
+    this.log(data, LogLevel.Debug, meta)
   }
 
-  trace(data: any) {
-    this.log(data, LogLevels.trace)
+  trace(data: any, meta: object = {}) {
+    this.log(data, LogLevel.Trace, meta)
   }
 
-  private log(data: any, logLevel: LogLevels, meta: object = {}) {
-    if (this.options.level > logLevel) {
-
+  private log(data: any, level: LogLevel, meta: object = {}) {
+    if (!isValidLogLevel(level, this.options.level)) {
+      return
     }
-    console.log({ message: data, ...meta })
+    const result = executeFormat({ data, level, ...meta }, this.options.format) as LogFormat
+    this.vault.store(result)
   }
-}
-
-
-
-class DevLogger extends Logger {
-  constructor() {
-    super({
-      level: LogLevels.trace,
-      format: DefaultFormat.plaintext,
-      colour: false
-    })
-  } 
 }

@@ -1,8 +1,8 @@
 export enum Environment {
-  Production = 'production',
-  Stage      = 'stage',
-  Develop    = 'develop',
-  Local      = 'local',
+  Production,
+  Stage ,
+  Development,
+  Local,
 }
 
 export const environment = (() =>{ 
@@ -10,12 +10,12 @@ export const environment = (() =>{
   switch (NODE_ENV.toLowerCase()) {
     case 'production': return Environment.Production
     case 'stage': return Environment.Stage
-    case 'develop': return Environment.Develop
+    case 'development': return Environment.Development
     default: return Environment.Local
   }
 })()
 
-export const isProduction = environment === Environment.Production
-export const isStage      = environment === Environment.Stage
-export const isDevelop    = environment === Environment.Develop
-export const isLocal      = environment === Environment.Local
+export const isProduction  = environment === Environment.Production
+export const isStage       = environment === Environment.Stage
+export const isDevelopment = environment === Environment.Development
+export const isLocal       = environment === Environment.Local
