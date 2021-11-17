@@ -2,11 +2,17 @@ export interface IStringifyOptions {
   depth?: bigint
 }
 
+/**
+ * Returns a JSON string representation of any value.
+ **/
 export function stringify(item: any, options?: IStringifyOptions): string {
   const maxDepth = options?.depth ?? -1n
   return _stringify(item, maxDepth)
 }
 
+/**
+ * Helper for recursive generation of JSON string.
+ **/
 function _stringify(item: any, depth: bigint): string {
   // Exit if reached max depth and is a collection
   const isCollection = Array.isArray(item) || (typeof item === 'object' && item !== null)
@@ -20,8 +26,13 @@ function _stringify(item: any, depth: bigint): string {
   }
   // Object
   if (typeof item === 'object' && item !== null) {
-    const content = Object.keys(item).map((key) => `"${key}":${_stringify(item[key], depth - 1n)}`)
+    const content = Object.keys(item)
+      .map((key) => `"${key}":${_stringify(item[key], depth - 1n)}`)
+      .join(',')
     return `{${content}}`
+  }
+  if (typeof item === 'function') {
+    return 'undefined'
   }
   // BigInt
   if (typeof item === 'bigint') {

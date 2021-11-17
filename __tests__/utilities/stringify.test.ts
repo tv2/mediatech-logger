@@ -61,6 +61,7 @@ test('misc', () => {
       },
     })
   ).toBe('{"attr0":"value0","attr1":[1,2,3,4],"attr2":{"attr2.1":[1],"attr2.2":null}}')
+  expect(stringify(() => {})).toBe('undefined')
 })
 
 test('depth 0', () => {
@@ -76,6 +77,7 @@ test('misc with depth 1', () => {
       { depth: 1n }
     )
   ).toBe('{"attr1":"<max-depth-reached>"}')
+
   expect(
     stringify({
       attr0: "value0",
@@ -94,9 +96,10 @@ test('misc with depth 2', () => {
       {
         attr1: [1, 2, 3, 4],
       },
-      { depth: 1n }
+      { depth: 2n }
     )
-  ).toBe('{"attr1":"<max-depth-reached>"}')
+  ).toBe('{"attr1":[1,2,3,4]}')
+
   expect(
     stringify({
       attr0: "value0",
@@ -107,4 +110,26 @@ test('misc with depth 2', () => {
       },
     }, { depth: 2n })
   ).toBe('{"attr0":"value0","attr1":[1,2,3,4],"attr2":{"attr2.1":"<max-depth-reached>","attr2.2":null}}')
+})
+
+test('misc with depth 3', () => {
+  expect(
+    stringify(
+      {
+        attr1: [1, 2, 3, 4],
+      },
+      { depth: 3n }
+    )
+  ).toBe('{"attr1":[1,2,3,4]}')
+
+  expect(
+    stringify({
+      attr0: "value0",
+      attr1: [1, 2, 3, 4],
+      attr2: {
+        'attr2.1': [1],
+        'attr2.2': null,
+      },
+    }, { depth: 3n })
+  ).toBe('{"attr0":"value0","attr1":[1,2,3,4],"attr2":{"attr2.1":[1],"attr2.2":null}}')
 })
