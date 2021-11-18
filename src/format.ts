@@ -1,44 +1,61 @@
-import { stringify } from "./utilities/stringify"
-import { Log } from "./log.interface"
-import { LogLevel } from "./log-level"
+import { stringify } from './utilities/stringify'
+import { Log } from './log.interface'
+import { LogLevel } from './log-level'
 
 export enum Format {
   JSON,
   Plaintext,
   Custom,
 }
-export type Formatter<T> = ((log: Log, options: FormatOptions<T>) => T)
+export type Formatter<T> = (log: Log, options: FormatOptions<T>) => T
 
 export type FormatOptions<T> = {
-  depth?: bigint,
+  depth?: bigint
   timestamp?: boolean
-} & ({
-  kind: Exclude<Format, Format.Custom> 
-} | {
-  kind: Format.Custom,
-  format: Formatter<T>
-})
+} & (
+  | {
+      kind: Exclude<Format, Format.Custom>
+    }
+  | {
+      kind: Format.Custom
+      format: Formatter<T>
+    }
+)
 
 export function applyFormat<T>(log: Log, options: FormatOptions<T>): T | string {
   switch (options.kind) {
-    case Format.JSON: return applyJSONFormat(log, options)
-    case Format.Plaintext: return applyPLAINTEXTFormat(log, options)
-    case Format.Custom: return options.format(log, options)
+    case Format.JSON:
+      return applyJSONFormat(log, options)
+    case Format.Plaintext:
+      return applyPLAINTEXTFormat(log, options)
+    case Format.Custom:
+      return options.format(log, options)
   }
 }
 
 function applyJSONFormat<T>(log: Log, options: FormatOptions<T>): T | string {
   const timestamp = options.timestamp ?? false
-  return stringify({
-    ...log,
-    level: LogLevel[log.level].toLowerCase(),
-    ...(timestamp ? { timestamp: applyDateFormat(new Date()) } : null)
-  }, { depth: options.depth ?? -1n })
+  return stringify(
+    {
+      ...log,
+      level: LogLevel[log.level].toLowerCase(),
+      ...(timestamp ? { timestamp: applyDateFormat(new Date()) } : null),
+    },
+    { depth: options.depth ?? -1n }
+  )
 }
 
 function applyPLAINTEXTFormat<T>(log: any, options: FormatOptions<T>): T | string {
   const timestamp = options.timestamp ?? false
-  return `[${LogLevel[log.level].toLowerCase()}]${timestamp ? '[' + applyDateFormat(new Date()) + ']' : ''}: ${log.message}`
+  let result = `[${LogLevel[log.level].toLowerCase()}]`
+  if (timestamp) {
+    result += `[${applyDateFormat(new Date())}]`
+  }
+  result += `: ${log.message}`
+  if (log.data) {
+    result += `\n${typeof log.data === 'string' ? log.data : stringify(log.data, { depth: options.depth ?? -1n })}`
+  }
+  return result
 }
 
 function applyDateFormat(date: Date) {
