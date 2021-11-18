@@ -19,6 +19,11 @@ function _stringify(item: any, depth: bigint): string {
   if (depth === 0n && isCollection) {
     return '"<max-depth-reached>"'
   }
+  // Error
+  if (item instanceof Error) {
+    const content = item.toString().replace(/"/g, '\\"')
+    return `"${content}"`
+  }
   // Array
   if (Array.isArray(item)) {
     const content = item.map((subitem) => _stringify(subitem, depth - 1n)).join(',')

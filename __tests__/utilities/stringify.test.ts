@@ -26,6 +26,11 @@ test('arrays', () => {
   expect(stringify(['1.2', '2.3', '3.4', '4.5', '5.6'])).toBe('["1.2","2.3","3.4","4.5","5.6"]')
 })
 
+test('errors', () => {
+  expect(stringify(new Error('some error message'))).toBe('"Error: some error message"')
+  expect(stringify(new Error('some "really good" error message'))).toBe('"Error: some \\"really good\\" error message"')
+})
+
 test('objects', () => {
   expect(stringify({})).toBe('{}')
   expect(
