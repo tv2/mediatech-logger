@@ -27,8 +27,8 @@ test('arrays', () => {
 })
 
 test('errors', () => {
-  expect(stringify(new Error('some error message'))).toBe('"Error: some error message"')
-  expect(stringify(new Error('some "really good" error message'))).toBe('"Error: some \\"really good\\" error message"')
+  expect(stringify(new Error('some error message'))).toMatch(/"Error: some error message(\n\s+at.+)?"/s)
+  expect(stringify(new Error('some "really good" error message'))).toMatch(/"Error: some \\"really good\\" error message(\n\s+at.+)?"/s)
 })
 
 test('objects', () => {
