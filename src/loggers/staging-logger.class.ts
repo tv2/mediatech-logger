@@ -7,7 +7,8 @@ export class StagingLogger extends Logger<{ [key: string]: any }> {
         super({
             level: LogLevel.Info,
             format: {
-                kind: Format.JSON
+                kind: Format.JSON,
+                timestamp: true,
             }
         })
     }

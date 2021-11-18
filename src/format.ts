@@ -32,11 +32,15 @@ function applyJSONFormat<T>(log: Log, options: FormatOptions<T>): T | string {
   return stringify({
     ...log,
     level: LogLevel[log.level].toLowerCase(),
-    ...(timestamp ? { timestamp: log.timestamp ?? new Date() } : null)
+    ...(timestamp ? { timestamp: applyDateFormat(new Date()) } : null)
   }, { depth: options.depth ?? -1n })
 }
 
 function applyPLAINTEXTFormat<T>(log: any, options: FormatOptions<T>): T | string {
   const timestamp = options.timestamp ?? false
-  return `[${LogLevel[log.level].toLowerCase()}]${timestamp ? '[' + Date.now() + ']' : ''}: ${log.message}`
+  return `[${LogLevel[log.level].toLowerCase()}]${timestamp ? '[' + applyDateFormat(new Date()) + ']' : ''}: ${log.message}`
+}
+
+function applyDateFormat(date: Date) {
+  return date.toISOString()
 }

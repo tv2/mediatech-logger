@@ -15,9 +15,17 @@ export const environment = (() =>{
     case 'development': return Environment.Development
     default: return Environment.Local
   }
-})()
+})
 
-export const isProduction  = environment === Environment.Production
-export const isStaging       = environment === Environment.Staging
-export const isDevelopment = environment === Environment.Development
-export const isLocal       = environment === Environment.Local
+export function isProduction(): boolean {
+  return environment() === Environment.Production
+}
+export function isStaging(): boolean {
+  return environment() === Environment.Staging
+}
+export function isDevelopment(): boolean {
+  return environment() === Environment.Development 
+}
+export function isLocal(): boolean {
+  return environment() === Environment.Local
+}

@@ -7,7 +7,8 @@ export class ProductionLogger extends Logger<{ [key: string]: any }> {
         super({
             level: LogLevel.Warn,
             format: {
-                kind: Format.JSON
+                kind: Format.JSON,
+                timestamp: true,
             }
         })
     }
