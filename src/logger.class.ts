@@ -41,31 +41,31 @@ export class Logger<LogFormat> implements ILogger {
     return logContext.tag(tag)
   }
 
-  error(data: any, meta: object = {}): void {
-    this.log(data, LogLevel.Error, meta)
+  error(message: any, meta: object = {}): void {
+    this.log(message, LogLevel.Error, meta)
   }
 
-  warn(data: any, meta: object = {}): void {
-    this.log(data, LogLevel.Warn, meta)
+  warn(message: any, meta: object = {}): void {
+    this.log(message, LogLevel.Warn, meta)
   }
 
-  info(data: any, meta: object = {}): void {
-    this.log(data, LogLevel.Info, meta)
+  info(message: any, meta: object = {}): void {
+    this.log(message, LogLevel.Info, meta)
   }
 
-  debug(data: any, meta: object = {}): void {
-    this.log(data, LogLevel.Debug, meta)
+  debug(message: any, meta: object = {}): void {
+    this.log(message, LogLevel.Debug, meta)
   }
 
-  trace(data: any, meta: object = {}): void {
-    this.log(data, LogLevel.Trace, meta)
+  trace(message: any, meta: object = {}): void {
+    this.log(message, LogLevel.Trace, meta)
   }
 
-  private log(data: any, level: LogLevel, meta: object = {}): void {
+  private log(message: any, level: LogLevel, meta: object = {}): void {
     if (!isValidLogLevel(level, this.options.level)) {
       return
     }
-    const result = applyFormat({ data, level, ...meta }, this.options.format)
+    const result = applyFormat({ message, level, ...meta }, this.options.format)
     this.vault.store(result)
   }
 }

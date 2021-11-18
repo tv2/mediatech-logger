@@ -38,5 +38,5 @@ function applyJSONFormat<T>(log: Log, options: FormatOptions<T>): T | string {
 
 function applyPLAINTEXTFormat<T>(log: any, options: FormatOptions<T>): T | string {
   const timestamp = options.timestamp ?? false
-  return `[${LogLevel[log.level].toLowerCase()}]${timestamp ? '[' + Date.now() + ']' : ''}: ${log.data}`
+  return `[${LogLevel[log.level].toLowerCase()}]${timestamp ? '[' + Date.now() + ']' : ''}: ${log.message}`
 }

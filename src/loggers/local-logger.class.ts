@@ -7,7 +7,7 @@ export class LocalLogger extends Logger<{ [key: string]: any }> {
         super({
             level: LogLevel.Trace,
             format: {
-                kind: Format.PLAINTEXT
+                kind: Format.Plaintext
             }
         })
     }
