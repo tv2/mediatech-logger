@@ -1,7 +1,7 @@
 import { applyFormat, Format } from '../../src/format'
 
-test('applyFormat (PLAINTEXT)', () => {
+test('applyFormat (Plaintext)', () => {
     const logInfo = { level: 2, data: 'hello world!'}
-    expect(applyFormat(logInfo, { kind: Format.PLAINTEXT })).toBe('[info]: hello world!')
-    expect(applyFormat(logInfo, { kind: Format.PLAINTEXT, timestamp: true })).toMatch(/\[info\]\[[^\]]+\]: hello world!/)
+    expect(applyFormat(logInfo, { kind: Format.Plaintext })).toBe('[info]: hello world!')
+    expect(applyFormat(logInfo, { kind: Format.Plaintext, timestamp: true })).toMatch(/\[info\]\[[^\]]+\]: hello world!/)
 })

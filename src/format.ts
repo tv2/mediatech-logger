@@ -4,8 +4,8 @@ import { LogLevel } from "./log-level"
 
 export enum Format {
   JSON,
-  PLAINTEXT,
-  CUSTOM,
+  Plaintext,
+  Custom,
 }
 export type Formatter<T> = ((log: Log, options: FormatOptions<T>) => T)
 
@@ -13,17 +13,17 @@ export type FormatOptions<T> = {
   depth?: bigint,
   timestamp?: boolean
 } & ({
-  kind: Exclude<Format, Format.CUSTOM> 
+  kind: Exclude<Format, Format.Custom> 
 } | {
-  kind: Format.CUSTOM,
+  kind: Format.Custom,
   format: Formatter<T>
 })
 
 export function applyFormat<T>(log: Log, options: FormatOptions<T>): T | string {
   switch (options.kind) {
     case Format.JSON: return applyJSONFormat(log, options)
-    case Format.PLAINTEXT: return applyPLAINTEXTFormat(log, options)
-    case Format.CUSTOM: return options.format(log, options)
+    case Format.Plaintext: return applyPLAINTEXTFormat(log, options)
+    case Format.Custom: return options.format(log, options)
   }
 }
 
