@@ -13,8 +13,8 @@ $ yarn add @tv2media/logger
 To build from source:
 
 ```zsh
-$ git clone https://github.com/tv2/logger.git
-$ cd logger
+$ git clone https://github.com/tv2/mediatech-logger.git
+$ cd mediatech-logger
 $ yarn && yarn build
 ```
 
