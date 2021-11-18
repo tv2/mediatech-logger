@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2020",
-    "lib": ["es2020"],
+    "lib": ["es2020", "dom"],
     "outDir": "dist",
     "declaration": true,
 
@@ -16,7 +16,9 @@
 
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+
+    "sourceMap": true
   },
   "exclude": [
     "__tests__/**/*.ts",
