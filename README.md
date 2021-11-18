@@ -7,20 +7,20 @@ The framework aims to facilitate the logging needs of the developers in TV2 Medi
 The package can be installed by:
 
 ```zsh
-$ yarn add @tv2media/mediatech-logger
+$ yarn add @tv2media/logger
 ```
 
 To build from source:
 
 ```zsh
-$ git clone https://github.com/tv2/mediatech-logger.git
-$ cd mediatech-logger
+$ git clone https://github.com/tv2/logger.git
+$ cd logger
 $ yarn && yarn build
 ```
 
 ## Usage - Simple
 ```typescript
-import { createDefaultLogger } from '@tv2media/mediatech-logger'
+import { createDefaultLogger } from '@tv2media/logger'
 
 const logger = createDefaultLogger()
 
@@ -41,7 +41,7 @@ import {
   LogLevel,            // The severity of the 
   Format,              // Formatting type of the log
   Vault,               // Where to store logs
-} from '@tv2media/mediatech-logger'
+} from '@tv2media/logger'
 
 const logger = new Logger({
   level: LogLevel.Info,             // .Error | .Warn | .Info | .Debug | .Trace
