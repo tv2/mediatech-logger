@@ -18,8 +18,17 @@ $ cd mediatech-logger
 $ yarn && yarn build
 ```
 
-## Usage
+## Usage - Simple
+```typescript
+import { createDefaultLogger } from '@tv2media/mediatech-logger'
 
+const logger = createDefaultLogger()
+
+logger.info('Server started.')
+logger.error('Request failed.')
+```
+
+### Usage - Advanced
 ```typescript
 import {
   Logger,              // The base class Logger for custom configuration.
@@ -28,25 +37,26 @@ import {
   StagingLogger,       // Logger used in staging.
   DevelopmentLogger,   // Logger used in development.
   LocalLogger,         // Logger used in local development.
+  
   LogLevel,            // The severity of the 
   Format,              // Formatting type of the log
-  Vault,
-}
+  Vault,               // Where to store logs
+} from '@tv2media/mediatech-logger'
 
 const logger = new Logger({
   level: LogLevel.Info,             // .Error | .Warn | .Info | .Debug | .Trace
   format: {
-  	kind: Format.Custom             // .Plaintext | .JSON | .Custom
+    kind: Format.Custom             // .Plaintext | .JSON | .Custom
     format: (log, options) => {     // Only used for .Custom, and is custom format.
-			let out = '[' + log.level + ']'
-  		if (options.timestamp) {
-  			out += '[' + new Date().toString() + ']'
-			}
-  		return out + ' ' + data.message
-		},
-  	timestamp: true,                // Whether or not to include timestamp.
-  	depth: 3n,                      // Depth to traverse in objects. Default is -1n (full depth).
-	},
+      let out = '[' + log.level + ']'
+      if (options.timestamp) {
+        out += '[' + new Date().toString() + ']'
+      }
+      return out + ' ' + data.message
+    },
+    timestamp: true,                // Whether or not to include timestamp.
+    depth: 3n,                      // Depth to traverse in objects. Default is -1n (full depth).
+  },
   vault: {                          // Where to store logs
     kind: Vault.Console,            // .Console
   },
