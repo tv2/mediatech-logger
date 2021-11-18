@@ -14,6 +14,11 @@ export class LogContext<Logger extends ILogger> implements ILogger {
       this.meta['tag'] = tag
       return this
     }
+
+    data(data: any): LogContext<Logger> {
+      this.meta['data'] = data
+      return this
+    }
   
     error(message: any, meta: object = {}): void {
       this.meta = { ...this.meta, ...meta }

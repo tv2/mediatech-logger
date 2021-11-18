@@ -41,6 +41,11 @@ export class Logger<LogFormat> implements ILogger {
     return logContext.tag(tag)
   }
 
+  data(data: any): LogContext<Logger<LogFormat>> {
+    const logContext = new LogContext<Logger<LogFormat>>(this)
+    return logContext.data(data)
+  }
+
   error(message: any, meta: object = {}): void {
     this.log(message, LogLevel.Error, meta)
   }

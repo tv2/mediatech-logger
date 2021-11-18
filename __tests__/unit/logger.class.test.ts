@@ -33,6 +33,20 @@ describe('Test environment', () => {
     logger.tag('test tag').trace('test')
   })
 
+  test('Test tag', () => {
+    const logger = createDefaultLogger();
+    expect(logger.tag('test tag')).toMatchObject({ meta: { tag: 'test tag' } })
+    expect(logger.tag('test tag').tag('real-tag')).toMatchObject({ meta: { tag: 'real-tag' } })
+  })
+
+  test('Test data', () => {
+    const logger = createDefaultLogger();
+    expect(logger.data('test data')).toMatchObject({ meta: { data: 'test data' } })
+    expect(logger.data('test data').data('real-data')).toMatchObject({ meta: { data: 'real-data' } })
+    const error = new Error('some error message')
+    expect(logger.data(error)).toMatchObject({ meta: { data: error } })
+  })
+
   test('Test createDefaultLogger for prod', () => {
     process.env.NODE_ENV = 'production'
     const logger = createDefaultLogger();
