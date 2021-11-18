@@ -5,4 +5,5 @@ export interface ILogger {
     debug: (message: any, meta: object) => void,
     trace: (message: any, meta: object) => void,
     tag: (tag: string) => ILogger,
+    data: (data: any) => ILogger,
 }
