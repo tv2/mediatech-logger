@@ -26,6 +26,7 @@ const logger = createDefaultLogger()
 
 logger.info('Server started.')
 logger.error('Request failed.')
+logger.data(new Error('Some dangerous error!')).error('Request failed.')
 ```
 
 ### Usage - Advanced
@@ -62,6 +63,7 @@ const logger = new Logger({
   },
 })
 
+logger.data('some-data')                 // Adds the key-value pair { "data": "some-data" } to a new log context.
 logger.tag('some-tag')                   // Adds the key-value pair { "tag": "some-tag" } to a new log context.
 logger.error('Sever failed.')            // Stores a log context with severity level of 'error'.
 logger.warn('No response from client.')  // Stores a log context with severity level of 'warn'.
