@@ -1,3 +1,11 @@
+### [1.0.3](https://github.com/tv2/mediatech-logger/compare/v1.0.2...v1.0.3) (2021-11-18)
+
+
+### Bug Fixes
+
+* Updated Plaintext format to contain log.data. ([580b2d6](https://github.com/tv2/mediatech-logger/commit/580b2d6ec9113724c34b85a23499e9a5016ce3f7))
+
+
 ### [1.0.2](https://github.com/tv2/mediatech-logger/compare/v1.0.1...v1.0.2) (2021-11-18)
 
 
