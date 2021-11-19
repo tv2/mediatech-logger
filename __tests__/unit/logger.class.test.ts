@@ -31,6 +31,18 @@ describe('Test environment', () => {
     logger.tag('test tag').info('test')
     logger.tag('test tag').debug('test')
     logger.tag('test tag').trace('test')
+    
+    logger.data('test data').error('test')
+    logger.data('test data').warn('test')
+    logger.data('test data').info('test')
+    logger.data('test data').debug('test')
+    logger.data('test data').trace('test')
+
+    logger.data(new Error('Some dangerous error.')).error('test')
+    logger.data(new Error('Some dangerous error.')).warn('test')
+    logger.data(new Error('Some dangerous error.')).info('test')
+    logger.data(new Error('Some dangerous error.')).debug('test')
+    logger.data(new Error('Some dangerous error.')).trace('test')
   })
 
   test('Test tag', () => {
