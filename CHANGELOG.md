@@ -1,3 +1,11 @@
+### [1.0.4](https://github.com/tv2/mediatech-logger/compare/v1.0.3...v1.0.4) (2021-11-19)
+
+
+### Bug Fixes
+
+* Added LOG_LEVEL overwriting. ([78dc760](https://github.com/tv2/mediatech-logger/commit/78dc760e6562d5f1d2dab17f1fd1522ecf30e8d0))
+
+
 ### [1.0.3](https://github.com/tv2/mediatech-logger/compare/v1.0.2...v1.0.3) (2021-11-18)
 
 
