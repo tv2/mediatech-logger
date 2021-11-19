@@ -74,3 +74,34 @@ logger.info('some trace here')           // Stores a log context with severity l
 logger.tag('testing').info('test message')
 logger.info('message', { tag: 'testing', otherMeta: 'meta' }) // Each of the severity level methods takes an optional argument, with extra attributes for the log context.
 ```
+
+## Environment Variables
+
+### NODE_ENV
+
+The createDefaultLogger is using the environment variable NODE_ENV to determine which log level and format which will be used. The current setup is the following.
+
+```bash
+NODE_ENV=production            # fomat = JSON, log level = warn
+NODE_ENV=stage | staging       # format = JSON, log level = info
+NODE_ENV=develop | development # fomat = PLAINTEXT, log level = debug
+NODE_ENV=local                 # fomat = PLAINTEXT, log level = trace
+NODE_ENV="any other value"     # fomat = PLAINTEXT, log level = trace
+```
+
+### LOG_LEVEL
+
+Setting the environment variable LOG_LEVEL overrides the log level from the NODE_ENV setup, this can come in handy when you need to enable e.g. debugging logs in a production enviorment.
+
+```typescript
+function getLogLevel(): LogLevel | undefined {
+    switch (process.env.LOG_LEVEL?.toLowerCase()) {
+        case 'error': return LogLevel.Error
+        case 'warn': return LogLevel.Warn
+        case 'info': return LogLevel.Info
+        case 'debug': return LogLevel.Debug
+        case 'trace': return LogLevel.Trace
+        default: return undefined
+    }
+}
+```

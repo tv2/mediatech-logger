@@ -2,10 +2,13 @@ import { Format } from '../format'
 import { LogLevel } from '../log-level'
 import { Logger } from '../logger.class'
 
+export type StagingLoggerOptions = {
+    level?: LogLevel
+}
 export class StagingLogger extends Logger<{ [key: string]: any }> {
-    constructor() {
+    constructor(options: StagingLoggerOptions) {
         super({
-            level: LogLevel.Info,
+            level: options.level ?? LogLevel.Info,
             format: {
                 kind: Format.JSON,
                 timestamp: true,

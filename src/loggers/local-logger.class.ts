@@ -2,10 +2,13 @@ import { Format } from '../format'
 import { LogLevel } from '../log-level'
 import { Logger } from '../logger.class'
 
+export type LocalLoggerOptions = {
+    level?: LogLevel
+}
 export class LocalLogger extends Logger<{ [key: string]: any }> {
-    constructor() {
+    constructor(options: LocalLoggerOptions) {
         super({
-            level: LogLevel.Trace,
+            level: options.level ?? LogLevel.Trace,
             format: {
                 kind: Format.Plaintext
             }

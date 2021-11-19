@@ -5,7 +5,7 @@ export enum Environment {
   Local,
 }
 
-export const environment = (() =>{ 
+export const environment = () => { 
   const NODE_ENV = process.env.NODE_ENV || 'local'
   switch (NODE_ENV.toLowerCase()) {
     case 'production': return Environment.Production
@@ -15,7 +15,7 @@ export const environment = (() =>{
     case 'development': return Environment.Development
     default: return Environment.Local
   }
-})
+}
 
 export function isProduction(): boolean {
   return environment() === Environment.Production
