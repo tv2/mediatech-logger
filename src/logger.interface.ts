@@ -1,9 +1,11 @@
-export interface ILogger {
-    error: (message: any, meta: object) => void,
-    warn: (message: any, meta: object) => void,
-    info: (message: any, meta: object) => void,
-    debug: (message: any, meta: object) => void,
-    trace: (message: any, meta: object) => void,
-    tag: (tag: string) => ILogger,
-    data: (data: any) => ILogger,
+export interface ILogger<T> {
+    error: (message: any, meta: object) => LoggerOutput<T>,
+    warn: (message: any, meta: object) => LoggerOutput<T>,
+    info: (message: any, meta: object) => LoggerOutput<T>,
+    debug: (message: any, meta: object) => LoggerOutput<T>,
+    trace: (message: any, meta: object) => LoggerOutput<T>,
+    tag: (tag: string) => ILogger<T>,
+    data: (data: any) => ILogger<T>,
 }
+
+export type LoggerOutput<T> = void | T | string

@@ -10,7 +10,8 @@ export class LocalLogger extends Logger<{ [key: string]: any }> {
         super({
             level: options.level ?? LogLevel.Trace,
             format: {
-                kind: Format.Plaintext
+                kind: Format.Plaintext,
+                prettyJSON: true,
             }
         })
     }
