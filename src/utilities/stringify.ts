@@ -1,5 +1,6 @@
 export interface StringifyOptions {
   depth: bigint
+  pretty: boolean
 }
 
 /**
@@ -7,7 +8,8 @@ export interface StringifyOptions {
  **/
 export function stringify(item: any, options: Partial<StringifyOptions> = {}): string {
   const depth = options.depth ?? -1n
-  return _stringify(item, depth, { ...options, depth })
+  const pretty = options.pretty ?? false
+  return _stringify(item, depth, { depth, pretty })
 }
 
 /**
@@ -32,10 +34,14 @@ function _stringify(item: any, depthCapacity: bigint, options: StringifyOptions)
   }
   // Object
   if (typeof item === 'object' && item !== null) {
+    const baseIndent = options.pretty ? indentObject(options.depth - depthCapacity) : ''
+    const indent = options.pretty ? indentObject(1n + options.depth - depthCapacity) : ''
+    const keySpace = options.pretty ? ' ' : ''
+    const newline = options.pretty ? '\n' : ''
     const content = Object.keys(item)
-      .map((key) => `"${key}":${_stringify(item[key], depthCapacity - 1n, options)}`)
-      .join(',')
-    return `{${content}}`
+      .map((key) => `${indent}"${key}":${keySpace}${_stringify(item[key], depthCapacity - 1n, options)}`)
+      .join(`,${newline}`)
+    return `{${newline}${content}${newline}${baseIndent}}`
   }
   if (typeof item === 'function') {
     return 'undefined'
@@ -51,4 +57,8 @@ function _stringify(item: any, depthCapacity: bigint, options: StringifyOptions)
   }
   // Fallback
   return String(item)
+}
+
+function indentObject(level: bigint, tabWidth: bigint = 2n) {
+  return ' '.repeat(Number(tabWidth * level))
 }

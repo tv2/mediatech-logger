@@ -75,12 +75,12 @@ describe('Test environment', () => {
   test('Test createDefaultLogger for dev', () => {
     process.env.NODE_ENV = 'development'
     const logger = createDefaultLogger();
-    expect(logger).toEqual({"options": {"format": {"kind": Format.Plaintext}, "level": LogLevel.Debug, "vault": {"kind": Vault.Console}}, "vault": {"options": {"kind": Vault.Console}}})
+    expect(logger).toEqual({"options": {"format": {"kind": Format.Plaintext, "prettyJSON":true}, "level": LogLevel.Debug, "vault": {"kind": Vault.Console}}, "vault": {"options": {"kind": Vault.Console}}})
   })
 
   test('Test createDefaultLogger for local', () => {
     process.env.NODE_ENV = 'local'
     const logger = createDefaultLogger();
-    expect(logger).toEqual({"options": {"format": {"kind": Format.Plaintext}, "level": LogLevel.Trace, "vault": {"kind": Vault.Console}}, "vault": {"options": {"kind": Vault.Console}}})
+    expect(logger).toEqual({"options": {"format": {"kind": Format.Plaintext, "prettyJSON":true}, "level": LogLevel.Trace, "vault": {"kind": Vault.Console}}, "vault": {"options": {"kind": Vault.Console}}})
   })
 })

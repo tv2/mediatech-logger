@@ -1,6 +1,6 @@
-import { ILogger } from './logger.interface'
+import { ILogger, LoggerOutput } from './logger.interface'
 
-export class LogContext<Logger extends ILogger> implements ILogger {
+export class LogContext<LogFormat,Logger extends ILogger<LogFormat>> implements ILogger<LogFormat> {
 
     logger: Logger
     meta: { [key: string]: any }
@@ -10,38 +10,38 @@ export class LogContext<Logger extends ILogger> implements ILogger {
       this.meta = {}
     }
   
-    tag(tag: string): LogContext<Logger> {
+    tag(tag: string): LogContext<LogFormat,Logger> {
       this.meta['tag'] = tag
       return this
     }
 
-    data(data: any): LogContext<Logger> {
+    data(data: any): LogContext<LogFormat,Logger> {
       this.meta['data'] = data
       return this
     }
   
-    error(message: any, meta: object = {}): void {
+    error(message: any, meta: object = {}): LoggerOutput<LogFormat> {
       this.meta = { ...this.meta, ...meta }
-      this.logger.error(message, this.meta)
+      return this.logger.error(message, this.meta)
     }
   
-    warn(message: any, meta: object = {}): void {
+    warn(message: any, meta: object = {}): LoggerOutput<LogFormat> {
       this.meta = { ...this.meta, ...meta }
-      this.logger.warn(message, this.meta)
+      return this.logger.warn(message, this.meta)
     }
   
-    info(message: any, meta: object = {}): void {
+    info(message: any, meta: object = {}): LoggerOutput<LogFormat> {
       this.meta = { ...this.meta, ...meta }
-      this.logger.info(message, this.meta)
+      return this.logger.info(message, this.meta)
     }
   
-    debug(message: any, meta: object = {}): void {
+    debug(message: any, meta: object = {}): LoggerOutput<LogFormat> {
       this.meta = { ...this.meta, ...meta }
-      this.logger.debug(message, this.meta)
+      return this.logger.debug(message, this.meta)
     }
   
-    trace(message: any, meta: object = {}): void {
+    trace(message: any, meta: object = {}): LoggerOutput<LogFormat> {
       this.meta = { ...this.meta, ...meta }
-      this.logger.trace(message, this.meta)
+      return this.logger.trace(message, this.meta)
     }
 }

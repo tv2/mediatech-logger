@@ -1,9 +1,15 @@
 import { applyFormat, Format, Formatter } from '../../src/format'
 
 test('applyFormat (Plaintext)', () => {
-    const logInfo = { level: 2, message: 'hello world!'}
+    const logInfo = { level: 2, message: 'hello world!' }
     expect(applyFormat(logInfo, { kind: Format.Plaintext })).toBe('[info]: hello world!')
     expect(applyFormat(logInfo, { kind: Format.Plaintext, timestamp: true })).toMatch(/\[info\]\[[^\]]+\]: hello world!/)
+})
+
+test('applyFormat (Plaintext + tag)', () => {
+    const logInfo = { level: 2, message: 'hello world!', tag: 'relevant-tag' }
+    expect(applyFormat(logInfo, { kind: Format.Plaintext })).toBe('[info]<relevant-tag>: hello world!')
+    expect(applyFormat(logInfo, { kind: Format.Plaintext, timestamp: true })).toMatch(/\[info\]\[[^\]]+\]<relevant-tag>: hello world!/)
 })
 
 test('applyFormat (Json)', () => {

@@ -10,7 +10,8 @@ export class DevelopmentLogger extends Logger<{ [key: string]: any }> {
         super({
             level: options.level ?? LogLevel.Debug,
             format: {
-                kind: Format.Plaintext
+                kind: Format.Plaintext,
+                prettyJSON: true,
             }
         })
     }
