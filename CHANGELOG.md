@@ -1,3 +1,22 @@
+## [1.1.0](https://github.com/tv2/mediatech-logger/compare/v1.0.4...v1.1.0) (2021-11-23)
+
+
+### Features
+
+* Added pretty-print to stringify ([f754459](https://github.com/tv2/mediatech-logger/commit/f754459fa8cb3073a7a8c22a9a787672afe133b3))
+* Added Raw Vault + setup prettyJSON ([a470d52](https://github.com/tv2/mediatech-logger/commit/a470d5210b490dba6084d81188e8a1c44530682b))
+
+
+### Bug Fixes
+
+* Added tag to plaintext format output. ([348966e](https://github.com/tv2/mediatech-logger/commit/348966e5203537b71f86965be03ecd1299a70fa2))
+
+
+### Code Refactoring
+
+* Corrected test description. ([43bac18](https://github.com/tv2/mediatech-logger/commit/43bac181745842838103c6e5755a7b1b0b9d0b52))
+
+
 ### [1.0.4](https://github.com/tv2/mediatech-logger/compare/v1.0.3...v1.0.4) (2021-11-19)
 
 
