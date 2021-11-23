@@ -52,9 +52,13 @@ function stringifyData<T>(data: any, options: FormatOptions<T>): string {
 
 function applyPLAINTEXTFormat<T>(log: any, options: FormatOptions<T>): T | string {
   const timestamp = options.timestamp ?? false
+  const hasTag = log.tag !== undefined
   let result = `[${LogLevel[log.level].toLowerCase()}]`
   if (timestamp) {
     result += `[${applyDateFormat(new Date())}]`
+  }
+  if (hasTag) {
+    result += `<${log.tag}>`
   }
   result += `: ${stringifyData(log.message, options)}`
   if (log.data) {
