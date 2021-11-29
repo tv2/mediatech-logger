@@ -1,17 +1,34 @@
-import { Logger, Format, Vault, LogLevel } from "../../src";
+import { Logger, Format, Vault, Level } from "../../src";
 
 const logger = new Logger({
-  level: LogLevel.Trace,
+  level: Level.Trace,
   format: {
+    timestamp: false,
     kind: Format.Plaintext,
-    prettyJSON: true,
+    pretty: true,
   },
   vault: {
-    kind: Vault.Raw
+    kind: Vault.Console
   }
 })
 
-test('Test prettyJSON', () => {
-  expect(logger.data({ some: { data: 'here', test: 'test' } }).info('hello')).toBe('[info]: hello\n{\n  "some": {\n    "data": "here",\n    "test": "test"\n  }\n}')
-  expect(logger.data({ some: { data: [{ "name": 1 }, { "name": 2 }, { "name": 3 }], test: 'test' } }).info('hello')).toBe('[info]: hello\n{\n  "some": {\n    "data": [{\n        "name": 1\n      },{\n        "name": 2\n      },{\n        "name": 3\n      }],\n    "test": "test"\n  }\n}')
+describe("Pretty format", () => {
+
+  beforeEach(() => {
+    jest.resetModules()
+    console.log = jest.fn()
+  })
+
+  afterAll(() => {
+    jest.resetModules()
+  })
+
+  test('Test prettyJSON', () => {
+    logger.data({ some: { data: 'here', test: 'test' } }).info('hello')
+    expect(console.log).toHaveBeenLastCalledWith('[info]: hello\n{\n  "some": {\n    "data": "here",\n    "test": "test"\n  }\n}')
+
+    logger.data({ some: { data: [{ "name": 1 }, { "name": 2 }, { "name": 3 }], test: 'test' } }).info('hello')
+    expect(console.log).toHaveBeenLastCalledWith('[info]: hello\n{\n  "some": {\n    "data": [{\n        "name": 1\n      },{\n        "name": 2\n      },{\n        "name": 3\n      }],\n    "test": "test"\n  }\n}')
+  })
+
 })

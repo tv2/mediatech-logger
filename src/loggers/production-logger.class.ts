@@ -1,18 +1,16 @@
-import { Format } from '../format'
-import { LogLevel } from '../log-level'
-import { Logger } from '../logger.class'
+import { Format, Level, Logger } from '../logger'
 
 export type ProductionLoggerOptions = {
-    level?: LogLevel
+  level?: Level
 }
-export class ProductionLogger extends Logger<{ [key: string]: any }> {
-    constructor(options: ProductionLoggerOptions) {
-        super({
-            level: options.level ?? LogLevel.Warn,
-            format: {
-                kind: Format.JSON,
-                timestamp: true,
-            }
-        })
-    }
+export class ProductionLogger extends Logger {
+  constructor(options: ProductionLoggerOptions) {
+    super({
+      level: options.level ?? Level.Warn,
+      format: {
+        kind: Format.JSON,
+        timestamp: true,
+      },
+    })
+  }
 }
