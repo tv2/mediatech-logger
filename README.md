@@ -39,15 +39,15 @@ import {
   DevelopmentLogger,   // Logger used in development.
   LocalLogger,         // Logger used in local development.
   
-  LogLevel,            // The severity of the 
+  Level,               // The severity of the 
   Format,              // Formatting type of the log
   Vault,               // Where to store logs
 } from '@tv2media/logger'
 
 const logger = new Logger({
-  level: LogLevel.Info,             // .Error | .Warn | .Info | .Debug | .Trace
+  level: Level.Info,                // .Error | .Warn | .Info | .Debug | .Trace
   format: {
-    kind: Format.Custom             // .Plaintext | .JSON | .Custom
+    kind: Format.Custom,            // .Plaintext | .JSON | .Custom
     format: (log, options) => {     // Only used for .Custom, and is custom format.
       let out = '[' + log.level + ']'
       if (options.timestamp) {
@@ -65,11 +65,11 @@ const logger = new Logger({
 
 logger.data('some-data')                 // Adds the key-value pair { "data": "some-data" } to a new log context.
 logger.tag('some-tag')                   // Adds the key-value pair { "tag": "some-tag" } to a new log context.
-logger.error('Sever failed.')            // Stores a log context with severity level of 'error'.
+logger.error('Server failed.')           // Stores a log context with severity level of 'error'.
 logger.warn('No response from client.')  // Stores a log context with severity level of 'warn'.
 logger.info('Server started at ip:port') // Stores a log context with severity level of 'info'.
 logger.debug({ ip: '0.0.0.0' })          // Stores a log context with severity level of 'debug'.
-logger.info('some trace here')           // Stores a log context with severity level of 'trace'.
+logger.trace('some trace here')          // Stores a log context with severity level of 'trace'.
 
 logger.tag('testing').info('test message')
 logger.info('message', { tag: 'testing', otherMeta: 'meta' }) // Each of the severity level methods takes an optional argument, with extra attributes for the log context.
@@ -94,13 +94,13 @@ NODE_ENV="any other value"     # fomat = PLAINTEXT, log level = trace
 Setting the environment variable LOG_LEVEL overrides the log level from the NODE_ENV setup, this can come in handy when you need to enable e.g. debugging logs in a production enviorment.
 
 ```typescript
-function getLogLevel(): LogLevel | undefined {
+function getLevel(): Level | undefined {
     switch (process.env.LOG_LEVEL?.toLowerCase()) {
-        case 'error': return LogLevel.Error
-        case 'warn': return LogLevel.Warn
-        case 'info': return LogLevel.Info
-        case 'debug': return LogLevel.Debug
-        case 'trace': return LogLevel.Trace
+        case 'error': return Level.Error
+        case 'warn': return Level.Warn
+        case 'info': return Level.Info
+        case 'debug': return Level.Debug
+        case 'trace': return Level.Trace
         default: return undefined
     }
 }

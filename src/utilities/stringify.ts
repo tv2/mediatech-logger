@@ -1,6 +1,7 @@
 export interface StringifyOptions {
   depth: bigint
   pretty: boolean
+  tabWidth: bigint
 }
 
 /**
@@ -9,7 +10,8 @@ export interface StringifyOptions {
 export function stringify(item: any, options: Partial<StringifyOptions> = {}): string {
   const depth = options.depth ?? -1n
   const pretty = options.pretty ?? false
-  return _stringify(item, depth, { depth, pretty })
+  const tabWidth = options.tabWidth ?? 2n
+  return _stringify(item, depth, { depth, pretty, tabWidth })
 }
 
 /**
@@ -34,8 +36,8 @@ function _stringify(item: any, depthCapacity: bigint, options: StringifyOptions)
   }
   // Object
   if (typeof item === 'object' && item !== null) {
-    const baseIndent = options.pretty ? indentObject(options.depth - depthCapacity) : ''
-    const indent = options.pretty ? indentObject(1n + options.depth - depthCapacity) : ''
+    const baseIndent = options.pretty ? indentObject(options.depth - depthCapacity, options.tabWidth) : ''
+    const indent = options.pretty ? indentObject(1n + options.depth - depthCapacity, options.tabWidth) : ''
     const keySpace = options.pretty ? ' ' : ''
     const newline = options.pretty ? '\n' : ''
     const content = Object.keys(item)
