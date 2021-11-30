@@ -1,7 +1,8 @@
-import { Format, Level, Logger } from '../logger'
+import { Format, Level, Logger, LoggerOptions, Vault } from '../logger'
 
 export type ProductionLoggerOptions = {
   level?: Level
+  vault?: LoggerOptions['vault']
 }
 export class ProductionLogger extends Logger {
   constructor(options: ProductionLoggerOptions) {
@@ -10,6 +11,9 @@ export class ProductionLogger extends Logger {
       format: {
         kind: Format.JSON,
         timestamp: true,
+      },
+      vault: options.vault ?? {
+        kind: Vault.Console,
       },
     })
   }
