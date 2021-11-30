@@ -65,11 +65,11 @@ const logger = new Logger({
 
 logger.data('some-data')                 // Adds the key-value pair { "data": "some-data" } to a new log context.
 logger.tag('some-tag')                   // Adds the key-value pair { "tag": "some-tag" } to a new log context.
-logger.error('Sever failed.')            // Stores a log context with severity level of 'error'.
+logger.error('Server failed.')           // Stores a log context with severity level of 'error'.
 logger.warn('No response from client.')  // Stores a log context with severity level of 'warn'.
 logger.info('Server started at ip:port') // Stores a log context with severity level of 'info'.
 logger.debug({ ip: '0.0.0.0' })          // Stores a log context with severity level of 'debug'.
-logger.info('some trace here')           // Stores a log context with severity level of 'trace'.
+logger.trace('some trace here')          // Stores a log context with severity level of 'trace'.
 
 logger.tag('testing').info('test message')
 logger.info('message', { tag: 'testing', otherMeta: 'meta' }) // Each of the severity level methods takes an optional argument, with extra attributes for the log context.
