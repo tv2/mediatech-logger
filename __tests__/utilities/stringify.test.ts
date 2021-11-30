@@ -28,7 +28,12 @@ test('arrays', () => {
 
 test('errors', () => {
   expect(stringify(new Error('some error message'))).toMatch(/"Error: some error message(\n\s+at.+)?"/s)
-  expect(stringify(new Error('some "really good" error message'))).toMatch(/"Error: some \\"really good\\" error message(\n\s+at.+)?"/s)
+  expect(stringify(new Error('some "really good" error message'))).toMatch(
+    /"Error: some \\"really good\\" error message(\n\s+at.+)?"/s
+  )
+  const noStackError = new Error('some "really good" error message without a stack')
+  noStackError.stack = undefined
+  expect(stringify(noStackError)).toMatch(/"Error: some \\"really good\\" error message without a stack"$/s)
 })
 
 test('objects', () => {
@@ -58,7 +63,7 @@ test('misc', () => {
   ).toBe('{"attr1":[1,2,3,4]}')
   expect(
     stringify({
-      attr0: "value0",
+      attr0: 'value0',
       attr1: [1, 2, 3, 4],
       attr2: {
         'attr2.1': [1],
@@ -84,14 +89,17 @@ test('misc with depth 1', () => {
   ).toBe('{"attr1":"<max-depth-reached>"}')
 
   expect(
-    stringify({
-      attr0: "value0",
-      attr1: [1, 2, 3, 4],
-      attr2: {
-        'attr2.1': [1],
-        'attr2.2': null,
+    stringify(
+      {
+        attr0: 'value0',
+        attr1: [1, 2, 3, 4],
+        attr2: {
+          'attr2.1': [1],
+          'attr2.2': null,
+        },
       },
-    }, { depth: 1n })
+      { depth: 1n }
+    )
   ).toBe('{"attr0":"value0","attr1":"<max-depth-reached>","attr2":"<max-depth-reached>"}')
 })
 
@@ -106,14 +114,17 @@ test('misc with depth 2', () => {
   ).toBe('{"attr1":[1,2,3,4]}')
 
   expect(
-    stringify({
-      attr0: "value0",
-      attr1: [1, 2, 3, 4],
-      attr2: {
-        'attr2.1': [1],
-        'attr2.2': null,
+    stringify(
+      {
+        attr0: 'value0',
+        attr1: [1, 2, 3, 4],
+        attr2: {
+          'attr2.1': [1],
+          'attr2.2': null,
+        },
       },
-    }, { depth: 2n })
+      { depth: 2n }
+    )
   ).toBe('{"attr0":"value0","attr1":[1,2,3,4],"attr2":{"attr2.1":"<max-depth-reached>","attr2.2":null}}')
 })
 
@@ -128,13 +139,16 @@ test('misc with depth 3', () => {
   ).toBe('{"attr1":[1,2,3,4]}')
 
   expect(
-    stringify({
-      attr0: "value0",
-      attr1: [1, 2, 3, 4],
-      attr2: {
-        'attr2.1': [1],
-        'attr2.2': null,
+    stringify(
+      {
+        attr0: 'value0',
+        attr1: [1, 2, 3, 4],
+        attr2: {
+          'attr2.1': [1],
+          'attr2.2': null,
+        },
       },
-    }, { depth: 3n })
+      { depth: 3n }
+    )
   ).toBe('{"attr0":"value0","attr1":[1,2,3,4],"attr2":{"attr2.1":[1],"attr2.2":null}}')
 })

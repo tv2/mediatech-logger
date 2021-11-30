@@ -1,29 +1,43 @@
-import { isDevelopment, isProduction, isStaging } from "../environment"
-import { LogLevel } from "../log-level"
-import { DevelopmentLogger } from "./development-logger.class"
-import { LocalLogger } from "./local-logger.class"
-import { ProductionLogger } from "./production-logger.class"
-import { StagingLogger } from "./staging-logger.class"
+import { isDevelopment, isProduction, isStaging } from '../environment'
+import { Level, LoggerOptions } from '../logger'
+import { DevelopmentLogger } from './development-logger.class'
+import { LocalLogger } from './local-logger.class'
+import { ProductionLogger } from './production-logger.class'
+import { StagingLogger } from './staging-logger.class'
 
-export const createDefaultLogger = (() => {
-    const level = getLogLevel()
-    switch (true) {
-        case isProduction(): return new ProductionLogger({ level })
-        case isStaging(): return new StagingLogger({ level })
-        case isDevelopment(): return new DevelopmentLogger({ level })
-        default: return new LocalLogger({ level })
-    }
-})
+export type DefaultLoggerOptions = {
+  vault?: LoggerOptions['vault']
+}
 
-function getLogLevel(): LogLevel | undefined {
-    switch (process.env.LOG_LEVEL?.toLowerCase()) {
-        case 'error': return LogLevel.Error
-        case 'warn': return LogLevel.Warn
-        case 'info': return LogLevel.Info
-        case 'debug': return LogLevel.Debug
-        case 'trace': return LogLevel.Trace
-        default: return undefined
-    }
+export const createDefaultLogger = ({ vault }: DefaultLoggerOptions = {}) => {
+  const level = getLevel()
+  switch (true) {
+    case isProduction():
+      return new ProductionLogger({ level, vault })
+    case isStaging():
+      return new StagingLogger({ level, vault })
+    case isDevelopment():
+      return new DevelopmentLogger({ level, vault })
+    default:
+      return new LocalLogger({ level, vault })
+  }
+}
+
+function getLevel(): Level | undefined {
+  switch (process.env.LOG_LEVEL?.toLowerCase()) {
+    case 'error':
+      return Level.Error
+    case 'warn':
+      return Level.Warn
+    case 'info':
+      return Level.Info
+    case 'debug':
+      return Level.Debug
+    case 'trace':
+      return Level.Trace
+    default:
+      return undefined
+  }
 }
 
 export * from './production-logger.class'

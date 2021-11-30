@@ -1,18 +1,20 @@
-import { Format } from '../format'
-import { LogLevel } from '../log-level'
-import { Logger } from '../logger.class'
+import { Format, Level, Logger, LoggerOptions, Vault } from '../logger'
 
 export type LocalLoggerOptions = {
-    level?: LogLevel
+  level?: Level
+  vault?: LoggerOptions['vault']
 }
-export class LocalLogger extends Logger<{ [key: string]: any }> {
-    constructor(options: LocalLoggerOptions) {
-        super({
-            level: options.level ?? LogLevel.Trace,
-            format: {
-                kind: Format.Plaintext,
-                prettyJSON: true,
-            }
-        })
-    }
+export class LocalLogger extends Logger {
+  constructor(options: LocalLoggerOptions) {
+    super({
+      level: options.level ?? Level.Trace,
+      format: {
+        kind: Format.Plaintext,
+        pretty: true,
+      },
+      vault: options.vault ?? {
+        kind: Vault.Console,
+      },
+    })
+  }
 }

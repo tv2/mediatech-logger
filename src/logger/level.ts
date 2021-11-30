@@ -1,4 +1,4 @@
-export enum LogLevel {
+export enum Level {
   Error,
   Warn,
   Info,
@@ -12,6 +12,6 @@ export enum LogLevel {
  * @param masterLevel The level to test against.
  * @returns Whether the level is a valid level to log.
  */
-export function isValidLogLevel(level: LogLevel, masterLevel: LogLevel): boolean {
+export function isValidLevel(level: Level, masterLevel: Level): boolean {
   return level <= masterLevel
 }
