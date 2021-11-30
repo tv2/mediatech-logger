@@ -1,3 +1,17 @@
+## [1.2.0](https://github.com/tv2/mediatech-logger/compare/v1.1.0...v1.2.0) (2021-11-30)
+
+
+### Features
+
+* Reworked all logger functionality and added file logger. ([58e5640](https://github.com/tv2/mediatech-logger/commit/58e5640c60793ec4c71e652ac0e6ae5ccb0e6eca))
+
+
+### Bug Fixes
+
+* Added support for vault customization for createDefaultLogger. ([1b8a919](https://github.com/tv2/mediatech-logger/commit/1b8a9194c94546409fecb1c48e0138253ae6f65a))
+* Updated createDefaultLogger with optional vault option. ([45c2e36](https://github.com/tv2/mediatech-logger/commit/45c2e367314aae85322791f1025f2a45983ba22f))
+
+
 ## [1.1.0](https://github.com/tv2/mediatech-logger/compare/v1.0.4...v1.1.0) (2021-11-23)
 
 
