@@ -1,6 +1,6 @@
 {
   "name": "@tv2media/logger",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Logging framework for tv2 mediatech",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

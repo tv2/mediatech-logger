@@ -1,3 +1,17 @@
+### [1.2.1](https://github.com/tv2/mediatech-logger/compare/v1.2.0...v1.2.1) (2021-12-01)
+
+
+### Bug Fixes
+
+* Added a simple coloring to plaintext as option. ([24d79ae](https://github.com/tv2/mediatech-logger/commit/24d79ae8919d6faccbcb28023083c643bbf270a7))
+* Made develop and local loggers use color. ([3e5179a](https://github.com/tv2/mediatech-logger/commit/3e5179a1822c5785d01b0f37d0179f1ce7a1cd27))
+
+
+### Code Refactoring
+
+* Use enum for log level in format test. ([8dada0e](https://github.com/tv2/mediatech-logger/commit/8dada0e566bcf49db12dfadb8c5ea66553f86180))
+
+
 ## [1.2.0](https://github.com/tv2/mediatech-logger/compare/v1.1.0...v1.2.0) (2021-11-30)
 
 
