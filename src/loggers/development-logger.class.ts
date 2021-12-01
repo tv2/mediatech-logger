@@ -11,6 +11,7 @@ export class DevelopmentLogger extends Logger {
       format: {
         kind: Format.Plaintext,
         pretty: true,
+        color: true,
       },
       vault: options.vault ?? {
         kind: Vault.Console,
