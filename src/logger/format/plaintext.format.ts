@@ -2,6 +2,7 @@ import { stringify } from '../../utilities/stringify'
 import { Level } from '../level'
 import { applyDateFormat } from './utilities'
 import { colorFromLevel, underscore } from './colors'
+import { normalizeDate } from '../../utilities'
 
 export type Options = {
   timestamp?: boolean
@@ -20,10 +21,12 @@ export function applyFormat(log: any, _options: Options): string {
     tabWidth: _options.tabWidth ?? 2n,
     color: _options.color ?? false,
   }
+  const date = normalizeDate(new Date())
+
   const colorifySeverity = (text: string) => colorFromLevel(text, options.color ? log.level : undefined)
   const severity = `[${colorifySeverity(Level[log.level].toLowerCase())}]`
   const colorifyTimestamp = (text: string) => options.color ? underscore(text) : text
-  const timestamp = options.timestamp ? `[${colorifyTimestamp(applyDateFormat(new Date()))}]` : ''
+  const timestamp = options.timestamp ? `[${colorifyTimestamp(applyDateFormat(date))}]` : ''
   const tag = log.tag ? `<${log.tag}>` : ''
   const message = stringifyAny(log.message, options)
   const data = log.data ? `\n${stringifyAny(log.data, options)}` : ''

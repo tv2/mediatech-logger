@@ -4,6 +4,7 @@ import { Level, isValidLevel } from '../level'
 import { Log } from '../log'
 import { join } from 'path'
 import * as fs from 'fs'
+import { normalizeDate } from '../../utilities'
 
 export type Options = {
   useRotation: boolean
@@ -51,7 +52,7 @@ export class FileVault implements IVault {
   }
 
   private getDateString(): string {
-    const date = new Date()
+    const date = normalizeDate(new Date())
     const dateOfMonth = `0${date.getDate()}`.slice(-2)
     const month = `0${date.getMonth() + 1}`.slice(-2)
     const year = date.getFullYear().toString()
