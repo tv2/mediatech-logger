@@ -1,6 +1,7 @@
 import { Level } from '../level'
 import { stringify } from '../../utilities/stringify'
 import { applyDateFormat } from './utilities'
+import { normalizeDate } from '../../utilities'
 
 export type Options = {
   timestamp?: boolean
@@ -16,11 +17,12 @@ export function applyFormat(log: any, _options: Options): string {
     pretty: _options.pretty ?? false,
     tabWidth: _options.tabWidth ?? 2n,
   }
+  const date = normalizeDate(new Date())
   return stringify(
     {
       ...log,
       level: Level[log.level].toLowerCase(),
-      ...(options.timestamp ? { timestamp: applyDateFormat(new Date()) } : null),
+      ...(options.timestamp ? { timestamp: applyDateFormat(date) } : null),
     },
     {
       depth: options.depth,
