@@ -91,7 +91,7 @@ NODE_ENV="any other value"     # fomat = PLAINTEXT, log level = trace
 
 ### LOG_LEVEL
 
-Setting the environment variable LOG_LEVEL overrides the log level from the NODE_ENV setup, this can come in handy when you need to enable e.g. debugging logs in a production enviorment.
+Setting the environment variable LOG_LEVEL overrides the log level from the NODE_ENV setup, this can come in handy when you need to enable e.g. debugging logs in a production environment.
 
 ```typescript
 function getLevel(): Level | undefined {
