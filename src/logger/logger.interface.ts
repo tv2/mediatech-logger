@@ -1,3 +1,5 @@
+import { Level } from './level'
+
 export interface ILogger {
   error: (message: any, meta?: object) => void
   warn: (message: any, meta?: object) => void
@@ -6,4 +8,5 @@ export interface ILogger {
   trace: (message: any, meta?: object) => void
   tag: (tag: string) => ILogger
   data: (data: any) => ILogger
+  setLevel(level: Level): void
 }

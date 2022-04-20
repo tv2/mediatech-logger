@@ -1,3 +1,4 @@
+import { Level } from './level'
 import { ILogger } from './logger.interface'
 
 export class LogContext implements ILogger {
@@ -7,6 +8,10 @@ export class LogContext implements ILogger {
   constructor(logger: ILogger) {
     this.logger = logger
     this.meta = {}
+  }
+  // Level
+  setLevel(level: Level): void {
+    this.logger.setLevel(level)
   }
 
   // Attributes

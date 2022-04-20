@@ -6,6 +6,7 @@ export interface IVault {
   format: FormatOptions
   level: Level
   store(log: Log): void
+  setLevel(level: Level): void
 }
 
 export type VaultBaseOptions = {

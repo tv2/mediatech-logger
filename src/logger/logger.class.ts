@@ -29,6 +29,11 @@ export class Logger implements ILogger {
     this.vaults = this.prepareVaults(options)
   }
 
+  // Level
+  setLevel(level: Level): void {
+    this.vaults.forEach((vault) => vault.setLevel(level))
+  }
+
   // Attributes
   tag(tag: string): ILogger {
     const context = new LogContext(this)
@@ -63,7 +68,7 @@ export class Logger implements ILogger {
   }
 
   private log(message: any, level: Level, meta: object = {}): void {
-    this.vaults.map((vault) => vault.store({ message, level, ...meta }))
+    this.vaults.forEach((vault) => vault.store({ message, level, ...meta }))
   }
 
   // Helpers

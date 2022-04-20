@@ -14,6 +14,10 @@ export class ConsoleVault implements IVault {
     this.level = options.level
   }
 
+  setLevel(level: Level) {
+    this.level = level
+  }
+
   store(log: Log): void {
     if (isValidLevel(log.level, this.level)) {
       const formattedLog = applyFormat(log, this.format)
