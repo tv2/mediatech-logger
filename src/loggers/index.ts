@@ -26,15 +26,15 @@ export const createDefaultLogger = ({ vault }: DefaultLoggerOptions = {}) => {
 function getLevel(): Level | undefined {
   switch (process.env.LOG_LEVEL?.toLowerCase()) {
     case 'error':
-      return Level.Error
+      return Level.error
     case 'warn':
-      return Level.Warn
+      return Level.warn
     case 'info':
-      return Level.Info
+      return Level.info
     case 'debug':
-      return Level.Debug
+      return Level.debug
     case 'trace':
-      return Level.Trace
+      return Level.trace
     default:
       return undefined
   }

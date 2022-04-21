@@ -94,7 +94,7 @@ describe('Test environment', () => {
       vaults: [
         {
           format: { kind: Format.JSON, timestamp: true },
-          level: Level.Warn,
+          level: Level.warn,
         },
       ],
     })
@@ -108,7 +108,7 @@ describe('Test environment', () => {
       vaults: [
         {
           format: { kind: Format.JSON, timestamp: true },
-          level: Level.Info,
+          level: Level.info,
         },
       ],
     })
@@ -123,7 +123,7 @@ describe('Test environment', () => {
       vaults: [
         {
           format: { kind: Format.Plaintext, pretty: true },
-          level: Level.Debug,
+          level: Level.debug,
         },
       ],
     })
@@ -137,7 +137,7 @@ describe('Test environment', () => {
       vaults: [
         {
           format: { kind: Format.Plaintext, pretty: true },
-          level: Level.Trace,
+          level: Level.trace,
         },
       ],
     })
@@ -150,7 +150,7 @@ describe('Test environment', () => {
       vaults: [
         {
           format: { kind: Format.JSON, pretty: true, timestamp: true },
-          level: Level.Info,
+          level: Level.info,
         },
       ],
     })
@@ -159,7 +159,7 @@ describe('Test environment', () => {
 
   test('multiple vaults logger', () => {
     const logger = new Logger({
-      level: Level.Info,
+      level: Level.info,
       format: { kind: Format.JSON, pretty: true, timestamp: true },
       vault: [{ kind: Vault.Console }, { kind: Vault.Console }],
     })

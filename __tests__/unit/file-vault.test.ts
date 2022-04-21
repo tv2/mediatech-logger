@@ -3,7 +3,7 @@ import * as fs from 'fs'
 
 const createLogger = () =>
   new Logger({
-    level: Level.Info,
+    level: Level.info,
     format: {
       kind: Format.JSON,
       pretty: false,
@@ -68,7 +68,7 @@ describe('', () => {
   test('without rotation', () => {
     jest.useFakeTimers().setSystemTime(new Date('2021-11-28').getTime())
     const logger = new Logger({
-      level: Level.Info,
+      level: Level.info,
       format: {
         kind: Format.JSON,
         pretty: false,

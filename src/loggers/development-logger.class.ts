@@ -7,7 +7,7 @@ export type DevelopmentLoggerOptions = {
 export class DevelopmentLogger extends Logger {
   constructor(options: DevelopmentLoggerOptions) {
     super({
-      level: options.level ?? Level.Debug,
+      level: options.level ?? Level.debug,
       format: {
         kind: Format.Plaintext,
         pretty: true,

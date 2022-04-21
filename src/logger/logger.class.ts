@@ -15,7 +15,7 @@ export class Logger implements ILogger {
 
   constructor(_options: Partial<LoggerOptions>) {
     const options = {
-      level: _options.level ?? Level.Info,
+      level: _options.level ?? Level.info,
       format: _options.format ?? {
         kind: Format.JSON,
         timestamp: true,
@@ -48,23 +48,23 @@ export class Logger implements ILogger {
   // Severity logging
 
   error(message: any, meta: object = {}): void {
-    this.log(message, Level.Error, meta)
+    this.log(message, Level.error, meta)
   }
 
   warn(message: any, meta: object = {}): void {
-    this.log(message, Level.Warn, meta)
+    this.log(message, Level.warn, meta)
   }
 
   info(message: any, meta: object = {}): void {
-    this.log(message, Level.Info, meta)
+    this.log(message, Level.info, meta)
   }
 
   debug(message: any, meta: object = {}): void {
-    this.log(message, Level.Debug, meta)
+    this.log(message, Level.debug, meta)
   }
 
   trace(message: any, meta: object = {}): void {
-    this.log(message, Level.Trace, meta)
+    this.log(message, Level.trace, meta)
   }
 
   private log(message: any, level: Level, meta: object = {}): void {

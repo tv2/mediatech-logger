@@ -1,9 +1,9 @@
 export enum Level {
-  Error,
-  Warn,
-  Info,
-  Debug,
-  Trace,
+  error,
+  warn,
+  info,
+  debug,
+  trace,
 }
 
 /**

@@ -2,12 +2,18 @@ import { Level } from '../level'
 
 export function colorFromLevel(text: string, level?: Level): string {
   switch (level) {
-    case Level.Error: return wrapInColor(text, '\x1b[31m')
-    case Level.Warn: return wrapInColor(text, '\x1b[33m')
-    case Level.Info: return wrapInColor(text, '\x1b[32m')
-    case Level.Debug: return wrapInColor(text, '\x1b[36m')
-    case Level.Trace: return wrapInColor(text, '\x1b[35m')
-    default: return text
+    case Level.error:
+      return wrapInColor(text, '\x1b[31m')
+    case Level.warn:
+      return wrapInColor(text, '\x1b[33m')
+    case Level.info:
+      return wrapInColor(text, '\x1b[32m')
+    case Level.debug:
+      return wrapInColor(text, '\x1b[36m')
+    case Level.trace:
+      return wrapInColor(text, '\x1b[35m')
+    default:
+      return text
   }
 }
 

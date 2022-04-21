@@ -7,7 +7,7 @@ export type StagingLoggerOptions = {
 export class StagingLogger extends Logger {
   constructor(options: StagingLoggerOptions) {
     super({
-      level: options.level ?? Level.Info,
+      level: options.level ?? Level.info,
       format: {
         kind: Format.JSON,
         timestamp: true,
