@@ -2,12 +2,12 @@ import { Level } from './level'
 import { ILogger } from './logger.interface'
 
 export class LogContext implements ILogger {
-  logger: ILogger
-  meta: Record<string, any>
+  private logger: ILogger
+  private _meta: Record<string, any>
 
-  constructor(logger: ILogger) {
+  constructor(logger: ILogger, meta?: Record<string, any>) {
     this.logger = logger
-    this.meta = {}
+    this._meta = meta ?? {}
   }
   // Level
   setLevel(level: Level): void {
@@ -16,43 +16,35 @@ export class LogContext implements ILogger {
 
   // Attributes
   tag(tag: string): LogContext {
-    this.updateMeta({ tag })
-    return this
+    return this.meta({ tag })
   }
 
   data(data: string): LogContext {
-    this.updateMeta({ data })
-    return this
+    return this.meta({ data })
+  }
+
+  meta(meta: object): LogContext {
+    return new LogContext(this.logger, { ...this._meta, ...meta })
   }
 
   // Severity logging
   error(message: any, meta: object = {}): void {
-    this.updateMeta(meta)
-    return this.logger.error(message, this.meta)
+    return this.logger.error(message, { ...this._meta, ...meta })
   }
 
   warn(message: any, meta: object = {}): void {
-    this.updateMeta(meta)
-    return this.logger.warn(message, this.meta)
+    return this.logger.warn(message, { ...this._meta, ...meta })
   }
 
   info(message: any, meta: object = {}): void {
-    this.updateMeta(meta)
-    return this.logger.info(message, this.meta)
+    this.logger.info(message, { ...this._meta, ...meta })
   }
 
   debug(message: any, meta: object = {}): void {
-    this.updateMeta(meta)
-    return this.logger.debug(message, this.meta)
+    return this.logger.debug(message, { ...this._meta, ...meta })
   }
 
   trace(message: any, meta: object = {}): void {
-    this.updateMeta(meta)
-    return this.logger.trace(message, this.meta)
-  }
-
-  // Helpers
-  private updateMeta(meta: object) {
-    this.meta = { ...this.meta, ...meta }
+    return this.logger.trace(message, { ...this._meta, ...meta })
   }
 }

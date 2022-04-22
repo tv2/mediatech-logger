@@ -45,6 +45,11 @@ export class Logger implements ILogger {
     return context.data(data)
   }
 
+  meta(meta: object): ILogger {
+    const context = new LogContext(this)
+    return context.meta(meta)
+  }
+
   // Severity logging
 
   error(message: any, meta: object = {}): void {

@@ -21,7 +21,7 @@ export class ConsoleVault implements IVault {
   store(log: Log): void {
     if (isValidLevel(log.level, this.level)) {
       const formattedLog = applyFormat(log, this.format)
-      console.log(formattedLog)
+      process.stdout.write(formattedLog + '\n')
     }
   }
 }
