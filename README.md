@@ -76,6 +76,10 @@ logger.trace('some trace here') // Stores a log context with severity level of '
 
 logger.tag('testing').info('test message')
 logger.info('message', { tag: 'testing', otherMeta: 'meta' }) // Each of the severity level methods takes an optional argument, with extra attributes for the log context.
+
+logger.meta({ hostname: 'host1', author: 'me' }) // Creates a new log context with the specified meta data.
+
+logger.setLevel(Level.info) // Set the specified level for all vaults in the logger.
 ```
 
 ## Environment Variables
