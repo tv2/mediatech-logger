@@ -1,3 +1,11 @@
+### [1.2.2](https://github.com/tv2/mediatech-logger/compare/v1.2.1...v1.2.2) (2021-12-15)
+
+
+### Bug Fixes
+
+* Daylight saving time off by one hour timestamp. ([ef0a752](https://github.com/tv2/mediatech-logger/commit/ef0a7523b941673780793303633dde7bb8759cf3))
+
+
 ### [1.2.1](https://github.com/tv2/mediatech-logger/compare/v1.2.0...v1.2.1) (2021-12-01)
 
 
