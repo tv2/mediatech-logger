@@ -1,15 +1,16 @@
 import { colorFromLevel, underscore } from '../../src/logger/format/colors'
-import { Level } from '../../src'
+import { Level } from '../../src/'
+import { ConsoleColor } from '../../src/logger/format/colors'
 
 test('colorFromLevel', () => {
   const text = 'hello world'
   const resetColor = '\x1b[0m'
   expect(colorFromLevel(text, undefined)).toBe(text)
-  expect(colorFromLevel(text, Level.Error)).toBe('\x1b[31m' + text + resetColor)
-  expect(colorFromLevel(text, Level.Warn)).toBe('\x1b[33m' + text + resetColor)
-  expect(colorFromLevel(text, Level.Info)).toBe('\x1b[32m' + text + resetColor)
-  expect(colorFromLevel(text, Level.Debug)).toBe('\x1b[36m' + text + resetColor)
-  expect(colorFromLevel(text, Level.Trace)).toBe('\x1b[35m' + text + resetColor)
+  expect(colorFromLevel(text, Level.error)).toBe(ConsoleColor.red + text + resetColor)
+  expect(colorFromLevel(text, Level.warn)).toBe(ConsoleColor.yellow + text + resetColor)
+  expect(colorFromLevel(text, Level.info)).toBe(ConsoleColor.green + text + resetColor)
+  expect(colorFromLevel(text, Level.debug)).toBe(ConsoleColor.cyan + text + resetColor)
+  expect(colorFromLevel(text, Level.trace)).toBe(ConsoleColor.magenta + text + resetColor)
 })
 
 test('colorFromLevel', () => {

@@ -32,6 +32,10 @@ export class FileVault implements IVault {
     this.fileStream = this.generateFileStream(this.filepath)
   }
 
+  setLevel(level: Level) {
+    this.level = level
+  }
+
   private ensureDirectory(): void {
     if (!fs.existsSync(this.options.directory)) {
       fs.mkdirSync(this.options.directory, { recursive: true })
