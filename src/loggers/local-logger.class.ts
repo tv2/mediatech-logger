@@ -7,7 +7,7 @@ export type LocalLoggerOptions = {
 export class LocalLogger extends Logger {
   constructor(options: LocalLoggerOptions) {
     super({
-      level: options.level ?? Level.Trace,
+      level: options.level ?? Level.trace,
       format: {
         kind: Format.Plaintext,
         pretty: true,

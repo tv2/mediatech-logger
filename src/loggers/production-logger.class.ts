@@ -7,7 +7,7 @@ export type ProductionLoggerOptions = {
 export class ProductionLogger extends Logger {
   constructor(options: ProductionLoggerOptions) {
     super({
-      level: options.level ?? Level.Warn,
+      level: options.level ?? Level.warn,
       format: {
         kind: Format.JSON,
         timestamp: true,

@@ -25,7 +25,7 @@ export function applyFormat(log: any, _options: Options): string {
 
   const colorifySeverity = (text: string) => colorFromLevel(text, options.color ? log.level : undefined)
   const severity = `[${colorifySeverity(Level[log.level].toLowerCase())}]`
-  const colorifyTimestamp = (text: string) => options.color ? underscore(text) : text
+  const colorifyTimestamp = (text: string) => (options.color ? underscore(text) : text)
   const timestamp = options.timestamp ? `[${colorifyTimestamp(applyDateFormat(date))}]` : ''
   const tag = log.tag ? `<${log.tag}>` : ''
   const message = stringifyAny(log.message, options)
@@ -41,5 +41,7 @@ function stringifyAny(data: any, options: Required<Options>): string {
         pretty: options.pretty,
         tabWidth: options.tabWidth,
       })
+        .replace(/^"/, '')
+        .replace(/"$/, '')
     : `${data}`
 }
