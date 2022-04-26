@@ -1,3 +1,19 @@
+### [1.2.3](https://github.com/tv2/mediatech-logger/compare/v1.2.2...v1.2.3) (2022-04-26)
+
+
+### Bug Fixes
+
+* Added meta method for setting custom meta. ([5c9d647](https://github.com/tv2/mediatech-logger/commit/5c9d6474908c43ff29165d2bee525cd3802cbbf4))
+* Allow changing level after constructed. ([2c1e62d](https://github.com/tv2/mediatech-logger/commit/2c1e62d5829bd08f1e7fc6c7e5babe0b0173bf8f))
+* Build no longer produces sourcemap. ([b571cb3](https://github.com/tv2/mediatech-logger/commit/b571cb3834d85fd984919e1afa25179845d2856b))
+* Changed levels from capitalized to lowercase. ([347249d](https://github.com/tv2/mediatech-logger/commit/347249d4fb575dab6333a9963e3ecd36140c034a))
+
+
+### Code Refactoring
+
+* Use enum for console color codes. ([62b32ff](https://github.com/tv2/mediatech-logger/commit/62b32ff1ccc467b0eae6b65733b774afecff5f74))
+
+
 ### [1.2.2](https://github.com/tv2/mediatech-logger/compare/v1.2.1...v1.2.2) (2021-12-15)
 
 
