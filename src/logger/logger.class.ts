@@ -30,45 +30,45 @@ export class Logger implements ILogger {
   }
 
   // Level
-  setLevel(level: Level): void {
+  setLevel = (level: Level): void => {
     this.vaults.forEach((vault) => vault.setLevel(level))
   }
 
   // Attributes
-  tag(tag: string): ILogger {
+  tag = (tag: string): ILogger => {
     const context = new LogContext(this)
     return context.tag(tag)
   }
 
-  data(data: any): ILogger {
+  data = (data: any): ILogger => {
     const context = new LogContext(this)
     return context.data(data)
   }
 
-  meta(meta: object): ILogger {
+  meta = (meta: object): ILogger => {
     const context = new LogContext(this)
     return context.meta(meta)
   }
 
   // Severity logging
 
-  error(message: any, meta: object = {}): void {
+  error = (message: any, meta: object = {}): void => {
     this.log(message, Level.error, meta)
   }
 
-  warn(message: any, meta: object = {}): void {
+  warn = (message: any, meta: object = {}): void => {
     this.log(message, Level.warn, meta)
   }
 
-  info(message: any, meta: object = {}): void {
+  info = (message: any, meta: object = {}): void => {
     this.log(message, Level.info, meta)
   }
 
-  debug(message: any, meta: object = {}): void {
+  debug = (message: any, meta: object = {}): void => {
     this.log(message, Level.debug, meta)
   }
 
-  trace(message: any, meta: object = {}): void {
+  trace = (message: any, meta: object = {}): void => {
     this.log(message, Level.trace, meta)
   }
 
