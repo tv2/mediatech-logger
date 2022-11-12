@@ -1,3 +1,11 @@
+### [1.2.4](https://github.com/tv2/mediatech-logger/compare/v1.2.3...v1.2.4) (2022-09-01)
+
+
+### Bug Fixes
+
+* this context is hard bound for public methods. ([c753c66](https://github.com/tv2/mediatech-logger/commit/c753c6644e4357596974734e3c6088e0c4f0f2bb))
+
+
 ### [1.2.3](https://github.com/tv2/mediatech-logger/compare/v1.2.2...v1.2.3) (2022-04-26)
 
 
