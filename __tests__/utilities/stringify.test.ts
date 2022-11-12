@@ -152,3 +152,12 @@ test('misc with depth 3', () => {
     )
   ).toBe('{"attr0":"value0","attr1":[1,2,3,4],"attr2":{"attr2.1":[1],"attr2.2":null}}')
 })
+
+test('class implementation', () => {
+    class MockClass {
+        toString(): string {
+            return 'hello world!'
+        }
+    }
+    expect(stringify(new MockClass())).toBe('hello world!')
+})
