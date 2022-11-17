@@ -35,7 +35,7 @@ function _stringify(item: any, depthCapacity: bigint, options: StringifyOptions)
     return `[${content}]`
   }
   // Object
-  if (typeof item === 'object' && item !== null) {
+  if (typeof item === 'object' && item !== null && !hasImplementedToString(item)) {
     const baseIndent = options.pretty ? indentObject(options.depth - depthCapacity, options.tabWidth) : ''
     const indent = options.pretty ? indentObject(1n + options.depth - depthCapacity, options.tabWidth) : ''
     const keySpace = options.pretty ? ' ' : ''
@@ -59,6 +59,10 @@ function _stringify(item: any, depthCapacity: bigint, options: StringifyOptions)
   }
   // Fallback
   return String(item)
+}
+
+function hasImplementedToString(object: object): boolean {
+  return !object.toString().toLowerCase().startsWith('[object ')
 }
 
 function indentObject(level: bigint, tabWidth: bigint = 2n) {
