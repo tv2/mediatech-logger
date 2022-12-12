@@ -2,7 +2,7 @@ import { FormatOptions } from '../format'
 import { Level } from '../level'
 import { Log } from '../log'
 
-export interface IVault {
+export interface Vault {
   format: FormatOptions
   level: Level
   store(log: Log): void

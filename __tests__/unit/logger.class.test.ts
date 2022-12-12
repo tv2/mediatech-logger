@@ -1,4 +1,4 @@
-import { createDefaultLogger, Format, Level, Logger, Vault } from '../../src'
+import { createDefaultLogger, Format, Level, LoggerBase, VaultKind } from '../../src'
 
 describe('Test environment', () => {
   const ENV = process.env
@@ -144,7 +144,7 @@ describe('Test environment', () => {
   })
 
   test('Test createDefaultLogger for local', () => {
-    const logger = new Logger({})
+    const logger = new LoggerBase({})
     expect(logger).toMatchObject({
       vaults: [
         {
@@ -157,10 +157,10 @@ describe('Test environment', () => {
   })
 
   test('multiple vaults logger', () => {
-    const logger = new Logger({
+    const logger = new LoggerBase({
       level: Level.info,
       format: { kind: Format.JSON, pretty: true, timestamp: true },
-      vault: [{ kind: Vault.Console }, { kind: Vault.Console }],
+      vault: [{ kind: VaultKind.Console }, { kind: VaultKind.Console }],
     })
 
     logger.info('some info')

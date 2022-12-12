@@ -1,10 +1,10 @@
-import { Format, Level, Logger, LoggerOptions, Vault } from '../logger'
+import { Format, Level, LoggerBase, LoggerBaseOptions, VaultKind } from '../logger'
 
 export type DevelopmentLoggerOptions = {
   level?: Level
-  vault?: LoggerOptions['vault']
+  vault?: LoggerBaseOptions['vault']
 }
-export class DevelopmentLogger extends Logger {
+export class DevelopmentLogger extends LoggerBase {
   constructor(options: DevelopmentLoggerOptions) {
     super({
       level: options.level ?? Level.debug,
@@ -14,7 +14,7 @@ export class DevelopmentLogger extends Logger {
         color: true,
       },
       vault: options.vault ?? {
-        kind: Vault.Console,
+        kind: VaultKind.Console,
       },
     })
   }

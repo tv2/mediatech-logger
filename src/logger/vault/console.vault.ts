@@ -1,11 +1,11 @@
-import { IVault, VaultBaseOptions } from './interface'
+import { Vault, VaultBaseOptions } from './interface'
 import { FormatOptions, applyFormat } from '../format'
 import { Level, isValidLevel } from '../level'
 import { Log } from '../log'
 
 export type Options = {}
 
-export class ConsoleVault implements IVault {
+export class ConsoleVault implements Vault {
   format: FormatOptions
   level: Level
 

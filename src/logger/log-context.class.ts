@@ -1,11 +1,11 @@
 import { Level } from './level'
-import { ILogger } from './logger.interface'
+import { Logger } from './logger.interface'
 
-export class LogContext implements ILogger {
-  private logger: ILogger
+export class LogContext implements Logger {
+  private logger: Logger
   private _meta: Record<string, any>
 
-  constructor(logger: ILogger, meta?: Record<string, any>) {
+  constructor(logger: Logger, meta?: Record<string, any>) {
     this.logger = logger
     this._meta = meta ?? {}
   }

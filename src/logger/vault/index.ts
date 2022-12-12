@@ -1,25 +1,25 @@
-import { IVault, VaultBaseOptions } from './interface'
+import { Vault, VaultBaseOptions } from './interface'
 export * from './interface'
 
 import * as ConsoleVault from './console.vault'
 import * as FileVault from './file.vault'
 
-export enum Vault {
+export enum VaultKind {
   Console,
   File,
 }
 
 export type VaultOptions = (
-  | ({ kind: Vault.Console } & ConsoleVault.Options)
-  | ({ kind: Vault.File } & FileVault.Options)
+  | ({ kind: VaultKind.Console } & ConsoleVault.Options)
+  | ({ kind: VaultKind.File } & FileVault.Options)
 ) &
   Partial<VaultBaseOptions>
 
-export function createVault(options: Required<VaultOptions>): IVault {
+export function createVault(options: Required<VaultOptions>): Vault {
   switch (options.kind) {
-    case Vault.Console:
+    case VaultKind.Console:
       return new ConsoleVault.ConsoleVault(options)
-    case Vault.File:
+    case VaultKind.File:
       return new FileVault.FileVault(options)
   }
 }

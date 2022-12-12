@@ -1,4 +1,4 @@
-import { IVault, VaultBaseOptions } from './interface'
+import { Vault, VaultBaseOptions } from './interface'
 import { applyFormat, FormatOptions } from '../format'
 import { Level, isValidLevel } from '../level'
 import { Log } from '../log'
@@ -12,7 +12,7 @@ export type Options = {
   filename: string
 }
 
-export class FileVault implements IVault {
+export class FileVault implements Vault {
   format: FormatOptions
   level: Level
   options: Required<Options>
