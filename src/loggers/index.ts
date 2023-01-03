@@ -1,12 +1,12 @@
 import { isDevelopment, isProduction, isStaging } from '../environment'
-import { Level, LoggerOptions } from '../logger'
+import { Level, LoggerBaseOptions } from '../logger'
 import { DevelopmentLogger } from './development-logger.class'
 import { LocalLogger } from './local-logger.class'
 import { ProductionLogger } from './production-logger.class'
 import { StagingLogger } from './staging-logger.class'
 
 export type DefaultLoggerOptions = {
-  vault?: LoggerOptions['vault']
+  vault?: LoggerBaseOptions['vault']
 }
 
 export const createDefaultLogger = ({ vault }: DefaultLoggerOptions = {}) => {

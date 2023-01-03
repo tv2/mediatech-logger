@@ -1,20 +1,20 @@
 import { Level } from './level'
 import { Format, FormatOptions } from './format'
-import { createVault, VaultOptions, IVault, Vault } from './vault'
-import { ILogger } from './logger.interface'
+import { createVault, VaultOptions, Vault, VaultKind } from './vault'
+import { Logger } from './logger.interface'
 import { LogContext } from './log-context.class'
 
-export type LoggerOptions = {
+export type LoggerBaseOptions = {
   level: Level
   format: FormatOptions
   vault: VaultOptions | VaultOptions[]
 }
 
-export class Logger implements ILogger {
-  vaults: IVault[]
+export class LoggerBase implements Logger {
+  vaults: Vault[]
 
-  constructor(_options: Partial<LoggerOptions>) {
-    const options = {
+  constructor(_options: Partial<LoggerBaseOptions>) {
+    const options: LoggerBaseOptions = {
       level: _options.level ?? Level.info,
       format: _options.format ?? {
         kind: Format.JSON,
@@ -23,7 +23,7 @@ export class Logger implements ILogger {
         depth: 3n,
       },
       vault: _options.vault ?? {
-        kind: Vault.Console,
+        kind: VaultKind.Console,
       },
     }
     this.vaults = this.prepareVaults(options)
@@ -35,17 +35,17 @@ export class Logger implements ILogger {
   }
 
   // Attributes
-  tag = (tag: string): ILogger => {
+  tag = (tag: string): Logger => {
     const context = new LogContext(this)
     return context.tag(tag)
   }
 
-  data = (data: any): ILogger => {
+  data = (data: any): Logger => {
     const context = new LogContext(this)
     return context.data(data)
   }
 
-  meta = (meta: object): ILogger => {
+  meta = (meta: object): Logger => {
     const context = new LogContext(this)
     return context.meta(meta)
   }
@@ -77,7 +77,7 @@ export class Logger implements ILogger {
   }
 
   // Helpers
-  private prepareVaults(options: LoggerOptions): IVault[] {
+  private prepareVaults(options: LoggerBaseOptions): Vault[] {
     const vaultConfigs = options.vault instanceof Array ? options.vault : [options.vault]
     return vaultConfigs.map((config) =>
       createVault({

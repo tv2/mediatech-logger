@@ -1,8 +1,8 @@
-import { Format, Level, Logger, Vault } from '../../src'
+import { Format, Level, LoggerBase, VaultKind } from '../../src'
 import * as fs from 'fs'
 
 const createLogger = () =>
-  new Logger({
+  new LoggerBase({
     level: Level.info,
     format: {
       kind: Format.JSON,
@@ -10,7 +10,7 @@ const createLogger = () =>
       timestamp: false,
     },
     vault: {
-      kind: Vault.File,
+      kind: VaultKind.File,
       directory: __dirname,
       filename: 'test',
       useRotation: true,
@@ -67,7 +67,7 @@ describe('', () => {
 
   test('without rotation', () => {
     jest.useFakeTimers().setSystemTime(new Date('2021-11-28').getTime())
-    const logger = new Logger({
+    const logger = new LoggerBase({
       level: Level.info,
       format: {
         kind: Format.JSON,
@@ -75,7 +75,7 @@ describe('', () => {
         timestamp: false,
       },
       vault: {
-        kind: Vault.File,
+        kind: VaultKind.File,
         directory: __dirname,
         filename: 'test',
         useRotation: false,

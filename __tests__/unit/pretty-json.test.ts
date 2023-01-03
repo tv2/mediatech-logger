@@ -1,6 +1,6 @@
-import { Logger, Format, Vault, Level } from '../../src'
+import { LoggerBase, Format, VaultKind, Level } from '../../src'
 
-const logger = new Logger({
+const logger = new LoggerBase({
   level: Level.trace,
   format: {
     timestamp: false,
@@ -8,7 +8,7 @@ const logger = new Logger({
     pretty: true,
   },
   vault: {
-    kind: Vault.Console,
+    kind: VaultKind.Console,
   },
 })
 
