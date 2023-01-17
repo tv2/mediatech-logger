@@ -1,0 +1,24 @@
+{
+  "name": "@tv2media/node-logger",
+  "version": "2.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "eslint src --ext .ts",
+    "lint-fix": "eslint src --ext .ts --fix"
+  },
+  "dependencies": {
+    "@tv2media/logger": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "eslint": "^8.32.0",
+    "typescript": "^4.9.4"
+  }
+}

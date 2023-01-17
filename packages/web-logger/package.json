@@ -1,0 +1,20 @@
+{
+  "name": "@tv2media/web-logger",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "node dist",
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@tv2media/logger": "workspace:^"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}

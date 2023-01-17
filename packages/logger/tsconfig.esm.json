@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "lib": ["esnext"],
+    "rootDir": "src",
+    "outDir": "dist/esm",
+    "declaration": true,
+
+    "strict": true,
+    "alwaysStrict": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "sourceMap": false
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
