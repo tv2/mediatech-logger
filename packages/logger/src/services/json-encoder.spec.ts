@@ -200,6 +200,16 @@ describe('JsonEncoder', () => {
         expect(encoder.encode(myList)).toBe('[{"hello":"world"}]')
       })
 
+      it('encodes cyclic objects', () => {
+        const objectA = { objectB: {} }
+        const objectB = { objectA }
+        objectA.objectB = objectB
+
+        const encoder = createUglyJsonEncoder()
+        expect(encoder.encode(objectA)).toEqual('{"objectB":{}}')
+
+      })
+
     })
 
     describe('pretty', () => {
@@ -382,6 +392,16 @@ describe('JsonEncoder', () => {
         const myList: Error[] = [new Error('my error')]
 
         expect(encoder.encode(myList)).toMatch(/^\[\n {2}"Error: my error\n +at(.|\n)+"\n\]$/)
+      })
+
+      it('encodes cyclic objects', () => {
+        const objectA = { objectB: {} }
+        const objectB = { objectA }
+        objectA.objectB = objectB
+
+        const encoder = createPrettyJsonEncoder()
+        expect(encoder.encode(objectA)).toEqual('{\n  "objectB": {}\n}')
+
       })
 
     })

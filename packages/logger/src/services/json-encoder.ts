@@ -17,10 +17,10 @@ export class JsonEncoder {
 
   public encode(data: unknown): string {
     const depth = 0n
-    return this.encodeRecursively(data, depth)
+    return this.encodeRecursively(data, depth, [])
   }
 
-  private encodeRecursively(data: unknown, depth: bigint): string {
+  private encodeRecursively(data: unknown, depth: bigint, seenReferences: unknown[]): string {
     if (this.typeSpecifier.isString(data)) {
       return this.encodeString(data, depth)
     }
@@ -38,11 +38,11 @@ export class JsonEncoder {
     }
 
     if (this.typeSpecifier.isArray(data)) {
-      return this.encodeArray(data, depth)
+      return this.encodeArray(data, depth, seenReferences)
     }
 
     if (this.typeSpecifier.isObject(data)) {
-      return this.encodeObject(data, depth)
+      return this.encodeObject(data, depth, seenReferences)
     }
 
     const indentation = this.getIndentationIfPretty(depth)
@@ -86,31 +86,41 @@ export class JsonEncoder {
     return `${ indentation }undefined`
   }
 
-  private encodeArray(array: unknown[], depth: bigint): string {
-    return this.isPretty ? this.encodeArrayPretty(array, depth) : this.encodeArrayUgly(array, depth)
+  private encodeArray(array: unknown[], depth: bigint, seenReferences: unknown[]): string {
+    if (this.isPretty) {
+      return this.encodeArrayPretty(array, depth, [...seenReferences, array])
+    }
+    return this.encodeArrayUgly(array, depth, [...seenReferences, array])
   }
 
-  private encodeArrayPretty(array: unknown[], depth: bigint): string {
+  private encodeArrayPretty(array: unknown[], depth: bigint, seenReferences: unknown[]): string {
     const text = array
-      .map(data => this.encodeRecursively(data, depth + 1n))
+      .filter(data => !seenReferences.includes(data))
+      .map(data => this.encodeRecursively(data, depth + 1n, seenReferences))
       .join(',\n')
     const indentation = this.getIndentation(depth)
     return text.trim().length > 0 ? `${ indentation }[\n${ text }\n${ indentation }]` : '[]'
   }
 
-  private encodeArrayUgly(array: unknown[], depth: bigint): string {
-    const text = array.map(data => this.encodeRecursively(data, depth + 1n)).join(',')
+  private encodeArrayUgly(array: unknown[], depth: bigint, seenReferences: unknown[]): string {
+    const text = array
+        .filter(data => !seenReferences.includes(data))
+        .map(data => this.encodeRecursively(data, depth + 1n, seenReferences)).join(',')
     return `[${ text }]`
   }
 
-  private encodeObject(data: object, depth: bigint): string {
-    return this.isPretty ? this.encodeObjectPretty(data, depth) : this.encodeObjectUgly(data, depth)
+  private encodeObject(data: object, depth: bigint, seenReferences: unknown[]): string {
+    if (this.isPretty) {
+      return this.encodeObjectPretty(data, depth, [...seenReferences, data])
+    }
+    return this.encodeObjectUgly(data, depth, [...seenReferences, data])
   }
 
-  private encodeObjectPretty(data: object, depth: bigint): string {
+  private encodeObjectPretty(data: object, depth: bigint, seenReferences: unknown[]): string {
     const entries = Object.entries(data)
     const content = entries
-      .map(([key, value]) => this.encodeObjectEntryPretty(key, value, depth + 1n))
+      .filter(([_, value]) => !this.isCyclic(value, seenReferences))
+      .map(([key, value]) => this.encodeObjectEntryPretty(key, value, depth + 1n, seenReferences))
       .join(',\n')
 
     const indentation = this.getIndentation(depth)
@@ -122,23 +132,24 @@ export class JsonEncoder {
     return `${ indentation }{\n${ content }\n${ indentation }}`
   }
 
-  private encodeObjectEntryPretty(key: string, value: unknown, depth: bigint): string {
-    const encodedValue = this.encodeRecursively(value, depth)
+  private encodeObjectEntryPretty(key: string, value: unknown, depth: bigint, seenReferences: unknown[]): string {
+    const encodedValue = this.encodeRecursively(value, depth, seenReferences)
       .replace(/^ */, '')
     const indentation = this.getIndentation(depth)
     return `${indentation}"${key}": ${encodedValue}`
   }
 
-  private encodeObjectUgly(data: object, depth: bigint): string {
+  private encodeObjectUgly(data: object, depth: bigint, seenReferences: unknown[]): string {
     const entries = Object.entries(data)
     const content = entries
-      .map(([key, value]) => this.encodeObjectEntryUgly(key, value, depth + 1n))
+      .filter(([_, value]) => !this.isCyclic(value, seenReferences))
+      .map(([key, value]) => this.encodeObjectEntryUgly(key, value, depth + 1n, seenReferences))
       .join(',')
     return `{${ content }}`
   }
 
-  private encodeObjectEntryUgly(key: string, value: unknown, depth: bigint): string {
-    const encodedValue = this.encodeRecursively(value, depth)
+  private encodeObjectEntryUgly(key: string, value: unknown, depth: bigint, seenReferences: unknown[]): string {
+    const encodedValue = this.encodeRecursively(value, depth, seenReferences)
     return `"${key}":${encodedValue}`
   }
 
@@ -152,6 +163,10 @@ export class JsonEncoder {
   private getIndentation(depth: bigint): string {
     const width = Number(depth * INDENTATION_WIDTH)
     return ' '.repeat(width)
+  }
+
+  private isCyclic(value: unknown, seenReferences: unknown[]): boolean {
+    return typeof value === 'object' && seenReferences.includes(value)
   }
 
 }
