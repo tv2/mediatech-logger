@@ -205,13 +205,13 @@ describe('JsonEncoder', () => {
     describe('pretty', () => {
 
       it('encodes undefined', () => {
-        const encoder = createUglyJsonEncoder()
+        const encoder = createPrettyJsonEncoder()
 
         expect(encoder.encode(undefined)).toBe('undefined')
       })
 
       it('encodes null', () => {
-        const encoder = createUglyJsonEncoder()
+        const encoder = createPrettyJsonEncoder()
 
         expect(encoder.encode(null)).toBe('null')
       })
@@ -231,7 +231,7 @@ describe('JsonEncoder', () => {
       })
 
       it('encodes empty string with double quotes', () => {
-        const encoder = createUglyJsonEncoder()
+        const encoder = createPrettyJsonEncoder()
         const text = ''
 
         expect(encoder.encode(text)).toBe('""')
