@@ -16,6 +16,10 @@
     "lint": "eslint src --ext .ts",
     "lint-fix": "eslint src --ext .ts --fix"
   },
+  "author": {
+    "name": "Anders Frederik Jørgensen",
+    "email": "afjo@tv2.dk"
+  },
   "devDependencies": {
     "@types/jest": "^29.2.5",
     "@typescript-eslint/eslint-plugin": "^5.48.1",

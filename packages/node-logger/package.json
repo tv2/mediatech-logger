@@ -11,6 +11,10 @@
     "lint": "eslint src --ext .ts",
     "lint-fix": "eslint src --ext .ts --fix"
   },
+  "author": {
+    "name": "Anders Frederik Jørgensen",
+    "email": "afjo@tv2.dk"
+  },
   "dependencies": {
     "@tv2media/logger": "workspace:^"
   },

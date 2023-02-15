@@ -14,6 +14,10 @@
   "dependencies": {
     "@tv2media/logger": "workspace:^"
   },
+  "author": {
+    "name": "Anders Frederik Jørgensen",
+    "email": "afjo@tv2.dk"
+  },
   "devDependencies": {
     "typescript": "^4.9.4"
   }
