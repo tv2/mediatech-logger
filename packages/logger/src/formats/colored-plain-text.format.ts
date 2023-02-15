@@ -10,12 +10,13 @@ export enum ConsoleColor {
     MAGENTA = '\x1b[35m',
 }
 
+const CLEAR_FORMATTING = '\x1b[0m'
+
 export class ColoredPlainTextFormat extends PlainTextFormat {
 
   protected getSeverity(log: Log): string {
     const color = this.getSeverityColor(log.level)
-    const clearColor = this.getClearColor()
-    return `[${ color }${ log.level }${ clearColor }]`
+    return `[${ color }${ log.level }${ CLEAR_FORMATTING }]`
   }
 
   private getSeverityColor(level: Level): string {
@@ -31,10 +32,6 @@ export class ColoredPlainTextFormat extends PlainTextFormat {
     case Level.TRACE:
       return ConsoleColor.MAGENTA
     }
-  }
-
-  private getClearColor(): string {
-    return '\x1b[0m'
   }
 
 }
