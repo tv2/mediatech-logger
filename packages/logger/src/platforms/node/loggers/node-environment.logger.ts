@@ -1,5 +1,6 @@
-import { EnvironmentLogger, Vault } from '@tv2media/logger'
 import { NodeEnvironmentService } from '../services/node-environment-service'
+import { EnvironmentLogger } from '../../../loggers'
+import { Vault } from '../../../vault'
 
 export class NodeEnvironmentLogger extends EnvironmentLogger {
 

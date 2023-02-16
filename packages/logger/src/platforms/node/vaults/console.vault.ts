@@ -1,6 +1,6 @@
-import { Vault } from '@tv2media/logger'
-import { Log } from '@tv2media/logger'
-import { Level } from '@tv2media/logger'
+import { Vault } from '../../../vault'
+import { Log } from '../../../log'
+import { Level } from '../../../level'
 
 export class ConsoleVault extends Vault {
 

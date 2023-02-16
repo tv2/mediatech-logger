@@ -1,6 +1,7 @@
 import { WebEnvironmentLogger } from './web-environment.logger'
 import { ConsoleVault } from '../vaults'
-import { Level, PlainTextFormat } from '@tv2media/logger'
+import { Level } from '../../../level'
+import { PlainTextFormat } from '../../../formats'
 
 export class DefaultLogger extends WebEnvironmentLogger {
 

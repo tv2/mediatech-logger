@@ -1,5 +1,5 @@
-import { Level } from '@tv2media/logger'
-import { Environment } from '@tv2media/logger'
+import { Level } from '../../../level'
+import { Environment } from '../../../environment'
 
 export class WebEnvironmentService {
 

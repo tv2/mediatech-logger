@@ -3,7 +3,7 @@
     "target": "es2020",
     "module": "es2020",
     "moduleResolution": "node",
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "rootDir": "src",
     "outDir": "dist/esm",
     "declaration": true,
