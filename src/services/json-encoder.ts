@@ -104,8 +104,8 @@ export class JsonEncoder {
 
   private encodeArrayUgly(array: unknown[], depth: bigint, seenReferences: unknown[]): string {
     const text = array
-        .filter(data => !seenReferences.includes(data))
-        .map(data => this.encodeRecursively(data, depth + 1n, seenReferences)).join(',')
+      .filter(data => !seenReferences.includes(data))
+      .map(data => this.encodeRecursively(data, depth + 1n, seenReferences)).join(',')
     return `[${ text }]`
   }
 
@@ -119,7 +119,7 @@ export class JsonEncoder {
   private encodeObjectPretty(data: object, depth: bigint, seenReferences: unknown[]): string {
     const entries = Object.entries(data)
     const content = entries
-      .filter(([_, value]) => !this.isCyclic(value, seenReferences))
+      .filter(([, value]) => !this.isCyclic(value, seenReferences))
       .map(([key, value]) => this.encodeObjectEntryPretty(key, value, depth + 1n, seenReferences))
       .join(',\n')
 
@@ -142,7 +142,7 @@ export class JsonEncoder {
   private encodeObjectUgly(data: object, depth: bigint, seenReferences: unknown[]): string {
     const entries = Object.entries(data)
     const content = entries
-      .filter(([_, value]) => !this.isCyclic(value, seenReferences))
+      .filter(([, value]) => !this.isCyclic(value, seenReferences))
       .map(([key, value]) => this.encodeObjectEntryUgly(key, value, depth + 1n, seenReferences))
       .join(',')
     return `{${ content }}`
