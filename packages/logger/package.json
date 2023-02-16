@@ -1,12 +1,41 @@
 {
   "name": "@tv2media/logger",
   "version": "2.0.0",
-  "exports": {
-    "import": "dist/esm/index.js",
-    "require": "dist/cjs/index.js"
-  },
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/cjs/index.js",
+      "types": "./dist/cjs/index.d.ts"
+    },
+    "./web": {
+      "import": "./dist/esm/platforms/web/index.js",
+      "require": "./dist/cjs/platforms/web/index.js",
+      "default": "./dist/cjs/platforms/web/index.js",
+      "types": "./dist/cjs/platforms/web/index.d.ts"
+    },
+    "./node": {
+      "import": "./dist/esm/platforms/node/index.js",
+      "require": "./dist/cjs/platforms/node/index.js",
+      "default": "./dist/cjs/platforms/node/index.js",
+      "types": "./dist/cjs/platforms/node/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "web": [
+        "./dist/cjs/platforms/web/index.d.ts"
+      ],
+      "node": [
+        "./dist/cjs/platforms/node/index.d.ts"
+      ],
+      "*": [
+        "./dist/cjs/index.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],

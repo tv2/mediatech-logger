@@ -998,6 +998,7 @@ __metadata:
   resolution: "@tv2media/logger@workspace:packages/logger"
   dependencies:
     "@types/jest": ^29.2.5
+    "@types/node": ^18.13.0
     "@typescript-eslint/eslint-plugin": ^5.48.1
     "@typescript-eslint/parser": ^5.48.1
     eslint: ^8.31.0
