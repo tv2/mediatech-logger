@@ -5,19 +5,15 @@ The framework aims to facilitate the logging needs of the developers in TV2 Udvi
 The framework consists of 3 package:
 
 - `@tv2media/logger` contains all the common logic used by the two other packages. Note: previously this was the main package.
-- `@tv2media/node-logger` contains specializations of the common logic for a Node environment – e.g. logic for storing logs in a file or printing to the terminal console.
-- `@tv2media/web-logger` contains specializations of the common logic for a web browser environment – e.g. logic for sending logs over a WebSocket or printing to the developer console.
+- `@tv2media/logger/node` contains specializations of the common logic for a Node environment – e.g. logic for storing logs in a file or printing to the terminal console.
+- `@tv2media/logger/web` contains specializations of the common logic for a web browser environment – e.g. logic for sending logs over a WebSocket or printing to the developer console.
 
 ## Install & build
 
 The package can be installed by:
 
 ```zsh
-$ yarn add @tv2media/node-logger
-```
-or
-```zsh
-$ yarn add @tv2media/web-logger
+$ yarn add @tv2media/logger
 ```
 
 To build from source:
@@ -25,13 +21,13 @@ To build from source:
 ```zsh
 $ git clone https://github.com/tv2/mediatech-logger.git
 $ cd mediatech-logger
-$ yarn && yarn workspaces foreach run build
+$ yarn && yarn build
 ```
 
 ## Usage - Simple
 
 ```typescript
-import { DefaultLogger } from '@tv2media/node-logger'
+import { DefaultLogger } from '@tv2media/logger/node'
 
 const logger = new DefaultLogger()
 
@@ -45,15 +41,13 @@ logger.data(new Error('Some dangerous error!')).error('Request failed.')
 ```typescript
 import {
     LoggerBase, // The base class Logger for custom configuration.
-    DefaultLogger, // Logger that changes format and log level depndent on the NODE_ENV (and LOG_LEVEL).
     Level, // The severity of the the log
     Format, // Formatting type of the log
     ColoredPlainTextFormat, // Format for colored plain-text logs
     JsonFormat, // Format for json formatted logs
     Vault, // Where to store logs
     ConsoleVault // Vault for writing to console
-} from '@tv2media/node-logger'
-import { ColoredPlainTextFormat } from './colored-plain-text.format'
+} from '@tv2media/logger'
 
 const logger = DefaultLogger([
     new ConsoleVault({
@@ -86,9 +80,9 @@ logger.setLevel(Level.info) // Set the specified level for all vaults in the log
 
 ## Environment Variables
 
-### @tv2media/node-logger
+### @tv2media/logger/node
 
-The DefaultLogger is using the environment variable NODE_ENV to determine which log level and format which will be used. The current setup is the following.
+The `DefaultLogger` is using the environment variable NODE_ENV to determine which log level and format which will be used. The current setup is the following.
 
 ```bash
 NODE_ENV=production            # format = JSON, log level = warn
@@ -100,9 +94,9 @@ NODE_ENV="any other value"     # format = PLAINTEXT, log level = trace
 
 Setting the environment variable LOG_LEVEL overrides the log level from the NODE_ENV setup, this can come in handy when you need to enable e.g. debugging logs in a production environment.
 
-### @tv2media/web-logger
+### @tv2media/logger/web
 
-The DefaultLogger is using the environment variable NODE_ENV to determine which log level and format which will be used. The current setup is the following.
+The `DefaultLogger` is using the environment variable ENV to determine which log level and format which will be used. The current setup is the following.
 
 ```bash
 window.env.ENV=production            # format = JSON, log level = warn
