@@ -4,10 +4,10 @@ import { Format } from '../../../format'
 import { Log } from '../../../log'
 
 export interface WebSocketVaultOptions extends VaultOptions {
-    level: Level,
-    format: Format,
-    url: string,
-    protocol: 'ws'
+  level: Level,
+  format: Format,
+  url: string,
+  protocol: 'ws'
 }
 
 const RECONNECT_INTERVAL = 3000

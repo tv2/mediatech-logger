@@ -3,7 +3,7 @@ import { Log } from '../log'
 import { JsonEncoder } from '../services/json-encoder'
 
 export interface JsonFormatOptions {
-    isPretty: boolean
+  isPretty: boolean
 }
 
 export class JsonFormat extends Format {

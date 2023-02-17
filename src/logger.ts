@@ -9,16 +9,16 @@ export abstract class Logger {
     Logger.methodBinder.bind(this)
   }
 
-    abstract error(message: unknown, metadata?: object): void
-    abstract warn(message: unknown, metadata?: object): void
-    abstract info(message: unknown, metadata?: object): void
-    abstract debug(message: unknown, metadata?: object): void
-    abstract trace(message: unknown, metadata?: object): void
+  abstract error(message: unknown, metadata?: object): void
+  abstract warn(message: unknown, metadata?: object): void
+  abstract info(message: unknown, metadata?: object): void
+  abstract debug(message: unknown, metadata?: object): void
+  abstract trace(message: unknown, metadata?: object): void
 
-    abstract metadata(metadata: object): Logger
-    abstract tag(tag: string): Logger
-    abstract data(data: unknown): Logger
+  abstract metadata(metadata: object): Logger
+  abstract tag(tag: string): Logger
+  abstract data(data: unknown): Logger
 
-    abstract setLevel(level: Level): void
+  abstract setLevel(level: Level): void
 
 }

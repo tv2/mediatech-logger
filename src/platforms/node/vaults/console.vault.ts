@@ -24,13 +24,13 @@ export class ConsoleVault extends Vault {
 
   private getWrite(level: Level): (message: string) => void {
     switch (level) {
-    case Level.ERROR:
-    case Level.WARN:
-      return (log: string) => process.stderr.write(log)
-    case Level.INFO:
-    case Level.DEBUG:
-    case Level.TRACE:
-      return (log: string) => process.stdout.write(log)
+      case Level.ERROR:
+      case Level.WARN:
+        return (log: string) => process.stderr.write(log)
+      case Level.INFO:
+      case Level.DEBUG:
+      case Level.TRACE:
+        return (log: string) => process.stdout.write(log)
     }
   }
 

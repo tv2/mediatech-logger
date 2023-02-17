@@ -24,14 +24,14 @@ export class ConsoleVault extends Vault {
 
   private getWrite(level: Level): (message: string) => void {
     switch (level) {
-    case Level.ERROR:
-      return console.error
-    case Level.WARN:
-      return console.warn
-    case Level.INFO:
-    case Level.DEBUG:
-    case Level.TRACE:
-      return console.log
+      case Level.ERROR:
+        return console.error
+      case Level.WARN:
+        return console.warn
+      case Level.INFO:
+      case Level.DEBUG:
+      case Level.TRACE:
+        return console.log
     }
   }
 

@@ -3,9 +3,9 @@ import { Log } from './log'
 import { Format } from './format'
 
 export interface VaultOptions {
-    level: Level,
-    format: Format,
-    isFormatLocked: boolean
+  level: Level,
+  format: Format,
+  isFormatLocked: boolean
 }
 
 export abstract class Vault {
@@ -19,16 +19,16 @@ export abstract class Vault {
     this.isFormatLocked = isFormatLocked
   }
 
-    abstract store(log: Log): void
+  abstract store(log: Log): void
 
-    protected shouldStore(log: Log): boolean {
-      const logImportance = this.getLevelImportance(log.level)
-      const logImportanceThreshold = this.getLevelImportance(this.level)
-      return  logImportance >= logImportanceThreshold
-    }
+  protected shouldStore(log: Log): boolean {
+    const logImportance = this.getLevelImportance(log.level)
+    const logImportanceThreshold = this.getLevelImportance(this.level)
+    return  logImportance >= logImportanceThreshold
+  }
 
-    private getLevelImportance(level: Level) {
-      switch (level) {
+  private getLevelImportance(level: Level) {
+    switch (level) {
       case Level.ERROR:
         return 4
       case Level.WARN:
@@ -39,17 +39,17 @@ export abstract class Vault {
         return 1
       case Level.TRACE:
         return 0
-      }
     }
+  }
 
-    public setLevel(level: Level): void {
-      this.level = level
-    }
+  public setLevel(level: Level): void {
+    this.level = level
+  }
 
-    public setFormat(format: Format): void {
-      if (this.isFormatLocked) {
-        return
-      }
-      this.format = format
+  public setFormat(format: Format): void {
+    if (this.isFormatLocked) {
+      return
     }
+    this.format = format
+  }
 }

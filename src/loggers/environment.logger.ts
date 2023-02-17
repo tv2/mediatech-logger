@@ -37,12 +37,12 @@ export class EnvironmentLogger extends LoggerBase {
 
   protected getEnvironmentFormat(environment: Environment): Format {
     switch (environment) {
-    case Environment.PRODUCTION:
-    case Environment.STAGING:
-      return new JsonFormat({ isPretty: false })
-    case Environment.DEVELOPMENT:
-    case Environment.LOCAL:
-      return new ColoredPlainTextFormat()
+      case Environment.PRODUCTION:
+      case Environment.STAGING:
+        return new JsonFormat({ isPretty: false })
+      case Environment.DEVELOPMENT:
+      case Environment.LOCAL:
+        return new ColoredPlainTextFormat()
     }
   }
 

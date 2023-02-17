@@ -3,7 +3,7 @@ import { SafeFunction, TypeSpecifier } from './type-specifier'
 const INDENTATION_WIDTH = 2n
 
 export interface JsonEncoderOptions {
-    isPretty: boolean
+  isPretty: boolean
 }
 
 export class JsonEncoder {

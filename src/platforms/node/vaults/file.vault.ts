@@ -6,11 +6,11 @@ import { Format } from '../../../format'
 import { Log } from '../../../log'
 
 export interface ConsoleVaultOptions extends VaultOptions {
-    level: Level,
-    format: Format,
-    directory: string,
-    fileName: string,
-    useRotation: boolean,
+  level: Level,
+  format: Format,
+  directory: string,
+  fileName: string,
+  useRotation: boolean,
 }
 
 export class FileVault extends Vault {
