@@ -54,17 +54,19 @@ export class JsonEncoder {
   }
 
   private encodeStringPretty(text: string, depth: bigint): string {
-    const escapedText = text
-      .replace(/"/g, '\\"')
-      .replace(/\0/g, '\\0')
+    const escapedText = this.escapeString(text)
     const indentation = this.getIndentation(depth)
     return `${ indentation }"${ escapedText }"`
   }
 
+  private escapeString(text: string): string {
+    return text
+        .replace(/"/g, '\\"')
+        .replace(/\0/g, '\\0')
+  }
+
   private encodeStringUgly(text: string): string {
-    const escapedText = text
-      .replace(/"/g, '\\"')
-      .replace(/\0/g, '\\0')
+    const escapedText = this.escapeString(text)
       .replace(/\r/g, '\\r')
       .replace(/\n/g, '\\n')
     return `"${ escapedText }"`
