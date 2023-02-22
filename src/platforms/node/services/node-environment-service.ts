@@ -1,59 +1,33 @@
 import { Level } from '../../../level'
 import { Environment } from '../../../environment'
+import { EnvironmentService } from '../../../services/environment.service'
 
 export class NodeEnvironmentService {
 
+  private readonly environmentService: EnvironmentService
+
+  constructor(environmentService: EnvironmentService) {
+    this.environmentService = environmentService
+  }
+
   public getLevel(): Level {
+    const environment = this.getEnvironment()
+    const fallbackLevel = this.environmentService.getEnvironmentLevel(environment)
     const rawLevel = this.getRawLevel()
-    switch (rawLevel) {
-      case 'error':
-        return Level.ERROR
-      case 'warn':
-        return Level.WARN
-      case 'info':
-        return Level.INFO
-      case 'debug':
-        return Level.DEBUG
-      case 'trace':
-        return Level.TRACE
-      default:
-        return this.getEnvironmentLevel()
-    }
+    return this.environmentService.sanitizeLevel(rawLevel, fallbackLevel)
   }
 
   private getRawLevel(): string {
     return process.env.LOG_LEVEL?.toLowerCase() ?? ''
   }
 
-  public getEnvironmentLevel(): Level {
-    const environment = this.getEnvironment()
-    switch (environment) {
-      case Environment.PRODUCTION:
-        return Level.WARN
-      case Environment.STAGING:
-        return Level.INFO
-      case Environment.DEVELOPMENT:
-        return Level.DEBUG
-      case Environment.LOCAL:
-        return Level.TRACE
-    }
+  public getEnvironment(): Environment {
+    const rawEnvironment = this.getRawEnvironment()
+    return this.environmentService.sanitizeEnvironment(rawEnvironment)
   }
 
-  public getEnvironment(): Environment {
-    const rawEnvironment = process.env.NODE_ENV?.toLowerCase()
-    switch (rawEnvironment) {
-      case 'prod':
-      case 'production':
-        return Environment.PRODUCTION
-      case 'stage':
-      case 'staging':
-        return Environment.STAGING
-      case 'dev':
-      case 'development':
-        return Environment.DEVELOPMENT
-      default:
-        return Environment.LOCAL
-    }
+  private getRawEnvironment(): string {
+    return process.env.NODE_ENV?.toLowerCase() ?? ''
   }
 
 }
