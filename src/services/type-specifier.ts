@@ -35,7 +35,9 @@ export class TypeSpecifier {
   }
 
   public isObject(data: unknown): data is object {
-    return typeof data === 'object' && !this.isNull(data) && !this.hasImplementedToString(data)
+    return typeof data === 'object'
+      && !this.isNull(data)
+      && !this.hasImplementedToString(data)
   }
 
   private hasImplementedToString(data: object): boolean {
