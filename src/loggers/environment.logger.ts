@@ -25,7 +25,7 @@ export class EnvironmentLogger extends LoggerBase {
     this.setLevel(this.level)
   }
 
-  public setLevel = (level: Level): void => {
+  public setLevel(level: Level): void {
     this.level = level
     super.setLevel(level)
   }

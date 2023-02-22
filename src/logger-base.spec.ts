@@ -61,6 +61,28 @@ describe('Logger', () => {
 
   })
 
+  describe('setLevel', () => {
+
+    it('set level for all vaults', () => {
+      const logger = createLogger()
+      const newLevel = Level.TRACE
+
+      logger.setLevel(newLevel)
+
+      verify(mockVault.setLevel(newLevel)).once()
+    })
+
+    it('calls vault.setLevel when used by a higher order function', () => {
+      const logger = createLogger()
+      const newLevel = Level.TRACE
+
+      higherOrderSetLevelFunction(logger.setLevel, newLevel)
+
+      verify(mockVault.setLevel(newLevel)).once()
+    })
+
+  })
+
 })
 
 function resetMocks(): void {
@@ -116,7 +138,7 @@ function testLogLevel(level: Level): () => void {
       const message = 'my message'
       const expectedLog = {level, message}
 
-      higherOrderFunction(logger[level], message)
+      higherOrderLogFunction(logger[level], message)
 
       verify(mockVault.store(objectContaining(expectedLog))).once()
     })
@@ -130,6 +152,11 @@ function createLogger(vaults?: Vault[]): LoggerBase {
 }
 
 type LogMethod = (message: unknown, metata?: object) => void
-function higherOrderFunction(logMethod: LogMethod, message: unknown, metadata?: object): void {
+function higherOrderLogFunction(logMethod: LogMethod, message: unknown, metadata?: object): void {
   logMethod(message, metadata)
+}
+
+type SetLevelMethod = (level: Level) => void
+function higherOrderSetLevelFunction(setLevel: SetLevelMethod, level: Level): void {
+  setLevel(level)
 }
