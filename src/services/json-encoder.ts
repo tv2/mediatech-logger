@@ -61,8 +61,8 @@ export class JsonEncoder {
 
   private escapeString(text: string): string {
     return text
-        .replace(/"/g, '\\"')
-        .replace(/\0/g, '\\0')
+      .replace(/"/g, '\\"')
+      .replace(/\0/g, '\\0')
   }
 
   private encodeStringUgly(text: string): string {
@@ -71,7 +71,6 @@ export class JsonEncoder {
       .replace(/\n/g, '\\n')
     return `"${ escapedText }"`
   }
-
 
   private encodeError(error: Error, depth: bigint): string {
     const text = error.stack ?? error.toString()
