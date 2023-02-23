@@ -4,6 +4,8 @@ module.exports = {
   testEnvironment: 'node',
   testPathIgnorePatterns: ['dist'],
   testMatch: ['**/*.spec.ts'],
+  collectCoverage: true,
+  collectCoverageFrom: ["src/**/*.ts", "!src/**/index.ts", "!src/**/*.d.ts"],
   transform: {
     '^.+\\.tsx?$': [
       'ts-jest',
