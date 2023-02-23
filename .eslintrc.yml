@@ -11,6 +11,8 @@ parserOptions:
 plugins:
   - '@typescript-eslint'
 rules:
+  '@typescript-eslint/explicit-function-return-type':
+    - error
   indent: off
   '@typescript-eslint/indent':
     - error
