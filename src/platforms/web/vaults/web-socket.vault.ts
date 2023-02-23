@@ -25,7 +25,7 @@ export class WebSocketVault extends Vault {
 
   private setupWebSocket(url: string): WebSocket {
     const webSocket = new WebSocket(url)
-    webSocket.onclose = () => {
+    webSocket.onclose = (): void => {
       setTimeout(this.reconnect.bind(this), Number(RECONNECT_INTERVAL))
     }
     return webSocket

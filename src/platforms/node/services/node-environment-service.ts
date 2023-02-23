@@ -6,7 +6,7 @@ export class NodeEnvironmentService {
 
   private readonly environmentService: EnvironmentService
 
-  constructor(environmentService: EnvironmentService) {
+  constructor(environmentService: EnvironmentService = new EnvironmentService()) {
     this.environmentService = environmentService
   }
 
@@ -17,10 +17,6 @@ export class NodeEnvironmentService {
     return this.environmentService.sanitizeLevel(rawLevel, fallbackLevel)
   }
 
-  private getRawLevel(): string {
-    return process.env.LOG_LEVEL?.toLowerCase() ?? ''
-  }
-
   public getEnvironment(): Environment {
     const rawEnvironment = this.getRawEnvironment()
     return this.environmentService.sanitizeEnvironment(rawEnvironment)
@@ -28,6 +24,10 @@ export class NodeEnvironmentService {
 
   private getRawEnvironment(): string {
     return process.env.NODE_ENV?.toLowerCase() ?? ''
+  }
+
+  private getRawLevel(): string {
+    return process.env.LOG_LEVEL?.toLowerCase() ?? ''
   }
 
 }
