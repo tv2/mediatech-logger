@@ -76,7 +76,7 @@ describe('JsonEncoder', () => {
 
       it('encodes named functions as undefined', () => {
         const encoder = createUglyJsonEncoder()
-        function myFunction() { return 'my-function' }
+        function myFunction(): string { return 'my-function' }
 
         expect(encoder.encode(myFunction)).toBe('undefined')
       })
@@ -284,7 +284,7 @@ describe('JsonEncoder', () => {
 
       it('encodes named functions as undefined', () => {
         const encoder = createPrettyJsonEncoder()
-        function myFunction() { return 'my-function' }
+        function myFunction(): string { return 'my-function' }
 
         expect(encoder.encode(myFunction)).toBe('undefined')
       })

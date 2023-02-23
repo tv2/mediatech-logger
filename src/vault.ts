@@ -24,10 +24,10 @@ export abstract class Vault {
   protected shouldStore(log: Log): boolean {
     const logImportance = this.getLevelImportance(log.level)
     const logImportanceThreshold = this.getLevelImportance(this.level)
-    return  logImportance >= logImportanceThreshold
+    return logImportance >= logImportanceThreshold
   }
 
-  private getLevelImportance(level: Level) {
+  private getLevelImportance(level: Level): number {
     switch (level) {
       case Level.ERROR:
         return 4
