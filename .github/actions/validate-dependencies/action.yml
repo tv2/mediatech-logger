@@ -7,5 +7,5 @@ runs:
         run: yarn install
         shell: bash
       - name: Check dependencies
-        run: yarn audit --groups "dependencies" --level moderate
+        run: yarn npm audit --environment production --severity moderate
         shell: bash
