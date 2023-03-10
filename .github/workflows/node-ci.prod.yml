@@ -242,6 +242,9 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
+      - name: Ensure that Yarn V3 dependencies are installed
+        run: yarn install
+        shell: bash
       - name: Publish package
         run: yarn publish --access=public --tag latest --new-version "${{ needs.bump-version.outputs.version }}"
         env:
