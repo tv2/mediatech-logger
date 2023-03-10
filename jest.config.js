@@ -1,7 +1,17 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: 'ts-jest/presets/default-esm',
+  preset: 'ts-jest',
   testEnvironment: 'node',
-  testPathIgnorePatterns: [
-    '.spec.ts$'
-  ]
-};
+  testPathIgnorePatterns: ['dist'],
+  testMatch: ['**/*.spec.ts'],
+  collectCoverage: true,
+  collectCoverageFrom: ["src/**/*.ts", "!src/**/index.ts", "!src/**/*.d.ts"],
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      // required due to custom location of tsconfig.json configuration file
+      // https://kulshekhar.github.io/ts-jest/docs/getting-started/options/tsconfig
+      { tsconfig: './tsconfig.test.json' },
+    ],
+  }
+}
