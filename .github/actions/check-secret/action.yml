@@ -5,7 +5,7 @@ inputs:
     description: 'Secret to check'
     required: true
 outputs:
-  defined: 
+  defined:
     description: "Boolean of whether secret is defined"
     value: ${{ steps.secret.outputs.defined }}
 runs:
@@ -18,7 +18,7 @@ runs:
       shell: bash
       run: |
         if [ "$secret" == "" ]; then
-          echo ::set-output name=defined::false
+          echo "defined=false" >> $GITHUB_OUTPUT
         else
-          echo ::set-output name=defined::true
+          echo "defined=true" >> $GITHUB_OUTPUT
         fi
