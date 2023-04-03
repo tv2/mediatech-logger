@@ -245,8 +245,10 @@ jobs:
       - name: Ensure that Yarn V3 dependencies are installed
         run: yarn install
         shell: bash
+      - name: Set package.json version
+        run: yarn version "${{ needs.bump-version.outputs.version }}"
       - name: Publish package
-        run: yarn npm publish --access=public --tag latest --new-version "${{ needs.bump-version.outputs.version }}"
+        run: yarn npm publish --access=public --tag latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
