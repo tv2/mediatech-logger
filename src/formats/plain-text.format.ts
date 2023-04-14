@@ -52,7 +52,7 @@ export class PlainTextFormat extends Format {
       return value
     }
 
-    if (this.typeSpecifier.isObject(value) || this.typeSpecifier.isArray(value)) {
+    if (this.typeSpecifier.isObject(value) || this.typeSpecifier.isArray(value) || this.typeSpecifier.isError(value)) {
       return this.jsonEncoder.encode(value)
     }
 
