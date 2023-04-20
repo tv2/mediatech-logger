@@ -1,3 +1,11 @@
+### [2.0.1](https://github.com/tv2/mediatech-logger/compare/v2.0.0...v2.0.1) (2023-04-20)
+
+
+### Bug Fixes
+
+* Use JSON encoder for Error data in plain text formats. ([fef6880](https://github.com/tv2/mediatech-logger/commit/fef68802925cd820496135985342374ebe391f87))
+
+
 ### [1.2.4](https://github.com/tv2/mediatech-logger/compare/v1.2.3...v1.2.4) (2022-09-01)
 
 
