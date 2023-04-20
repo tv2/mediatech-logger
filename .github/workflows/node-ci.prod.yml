@@ -12,7 +12,7 @@
 #     The destination is only triggered if the secret 'NPM_TOKEN' is provided.
 #
 #   [Docker Hub]
-#     The destination is only triggered if the secrets 'DOCKER_USERNAME' and 'DOCKER_PASSWORD' are 
+#     The destination is only triggered if the secrets 'DOCKER_USERNAME' and 'DOCKER_PASSWORD' are
 #     provided.
 #
 #######################################################################################################################
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: ./.github/actions/cache
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -44,7 +44,7 @@ jobs:
     needs: cache-dependencies
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: ./.github/actions/cache
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -56,7 +56,7 @@ jobs:
     needs: cache-dependencies
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - uses: ./.github/actions/test
 
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: ./.github/actions/validate-dependencies
 
   bump-version:
@@ -80,7 +80,7 @@ jobs:
       bumped: ${{ steps.tag_version.outputs.new_tag != '' }}
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Configure committer
         run: |
           git config user.name "${{ github.event.pusher.name }}"
@@ -119,7 +119,7 @@ jobs:
       - bump-version
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Pull request to develop
         id: develop
         continue-on-error: true
@@ -140,7 +140,7 @@ jobs:
       - bump-version
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Ensure commits from bump-version
         run: git pull
       - uses: ./.github/actions/cache
@@ -149,7 +149,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: Upload build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}
           path: dist
@@ -161,7 +161,7 @@ jobs:
       defined: ${{ steps.release.outputs.defined == 'true' }}
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check if is set to release
         id: release
         uses: ./.github/actions/check-secret
@@ -176,9 +176,9 @@ jobs:
       - check-github-release
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ github.event.repository.name }}
           path: dist
@@ -213,7 +213,7 @@ jobs:
       defined: ${{ steps.token.outputs.defined == 'true' }}
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check if has username
         id: token
         uses: ./.github/actions/check-secret
@@ -228,25 +228,27 @@ jobs:
       - check-npm-token
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Configure publisher
         run: |
           git config user.name "${{ github.event.pusher.name }}"
           git config user.email "${{ github.event.pusher.email }}"
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ github.event.repository.name }}
           path: dist
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
       - name: Ensure that Yarn V3 dependencies are installed
         run: yarn install
         shell: bash
+      - name: Set package.json version
+        run: yarn version "${{ needs.bump-version.outputs.version }}"
       - name: Publish package
-        run: yarn publish --access=public --tag latest --new-version "${{ needs.bump-version.outputs.version }}"
+        run: yarn npm publish --access=public --tag latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -257,7 +259,7 @@ jobs:
       defined: ${{ steps.username.outputs.defined == 'true' && steps.password.outputs.defined == 'true' }}
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check if has username
         id: username
         uses: ./.github/actions/check-secret
@@ -277,9 +279,9 @@ jobs:
       - check-docker-credentials
     steps:
       - name: Access repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: ${{ github.event.repository.name }}
           path: dist
