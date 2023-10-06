@@ -23,7 +23,7 @@ export class ConsoleVault extends Vault {
     return text.replace(/\n?$/, '\n')
   }
 
-  private getWrite(level: Level): (message: unknown, data?: unknown) => void {
+  private getWrite(level: Level): (message: string, data?: unknown) => void {
     switch (level) {
       case Level.ERROR:
         return console.error
