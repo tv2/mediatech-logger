@@ -8,21 +8,22 @@ export class ConsoleVault extends Vault {
     if (!this.shouldStore(log)) {
       return
     }
-    const formattedLog = this.format.apply(log)
-    this.printLog(formattedLog, log.level)
+    const { data, ...logWithoutData }: Log = log
+    const formattedLog = this.format.apply(logWithoutData)
+    this.printLog(formattedLog, log.level, data)
   }
 
-  private printLog(message: string, level: Level): void {
+  private printLog(message: string, level: Level, data?: unknown): void {
     const messageWithNewline = this.suffixNewlineIfNotThere(message)
     const write = this.getWrite(level)
-    write(messageWithNewline)
+    write(messageWithNewline, data)
   }
 
   private suffixNewlineIfNotThere(text: string): string {
     return text.replace(/\n?$/, '\n')
   }
 
-  private getWrite(level: Level): (message: string) => void {
+  private getWrite(level: Level): (message: string, data?: unknown) => void {
     switch (level) {
       case Level.ERROR:
         return console.error
@@ -34,5 +35,4 @@ export class ConsoleVault extends Vault {
         return console.log
     }
   }
-
 }
