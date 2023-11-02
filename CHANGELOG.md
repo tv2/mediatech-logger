@@ -1,3 +1,12 @@
+### [2.0.2](https://github.com/tv2/mediatech-logger/compare/v2.0.1...v2.0.2) (2023-11-02)
+
+
+### Bug Fixes
+
+* **web:** ConsoleVault outputs log.data as interactive object instead of as a string. ([fcb4c3c](https://github.com/tv2/mediatech-logger/commit/fcb4c3c9782db8494a9b0554c5389d367b0e5361))
+* **web:** ConsoleVault.getWrite message type changed back to string. ([40c64a8](https://github.com/tv2/mediatech-logger/commit/40c64a8e737f463aa33e815c4b8dacb519ab56e7))
+
+
 ### [2.0.1](https://github.com/tv2/mediatech-logger/compare/v2.0.0...v2.0.1) (2023-04-20)
 
 
