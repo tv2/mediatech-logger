@@ -238,7 +238,7 @@ jobs:
         with:
           name: ${{ github.event.repository.name }}
           path: dist
-      - uses: docker/login-action@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
