@@ -23,7 +23,6 @@ export class JsonFormat extends Format {
     return this.jsonEncoder.encode({
       ...log,
       timestamp: this.getFormattedTimestamp(log.timestamp)
-
     })
   }
 
