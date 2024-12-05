@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -44,7 +44,7 @@ jobs:
     needs: cache-dependencies
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -56,7 +56,7 @@ jobs:
     needs: cache-dependencies
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - uses: ./.github/actions/test
 
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: ./.github/actions/validate-dependencies
 
   bump-version:
@@ -80,20 +80,20 @@ jobs:
       bumped: ${{ steps.tag_version.outputs.new_tag != '' }}
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Configure committer
         run: |
           git config user.name "${{ github.event.pusher.name }}"
           git config user.email "${{ github.event.pusher.email }}"
       - name: Bump version and push tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v5.6
+        uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           default_bump: false
       - name: Update package.json
         if: steps.tag_version.outputs.new_tag != ''
-        uses: jossef/action-set-json-field@v1
+        uses: jossef/action-set-json-field@v2.1
         with:
           file: package.json
           field: version
@@ -108,7 +108,7 @@ jobs:
 
       - name: Commit and push changes to package.json and CHANGELOG.md
         if: steps.tag_version.outputs.new_tag != ''
-        uses: EndBug/add-and-commit@v7
+        uses: EndBug/add-and-commit@v9
         with:
           add: "['package.json', 'CHANGELOG.md']"
 
@@ -119,7 +119,7 @@ jobs:
       - bump-version
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Pull request to develop
         id: develop
         continue-on-error: true
@@ -140,7 +140,7 @@ jobs:
       - bump-version
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Ensure commits from bump-version
         run: git pull
       - uses: ./.github/actions/cache
@@ -149,7 +149,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.repository.name }}
           path: dist
@@ -161,7 +161,7 @@ jobs:
       defined: ${{ steps.release.outputs.defined == 'true' }}
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check if is set to release
         id: release
         uses: ./.github/actions/check-secret
@@ -176,9 +176,9 @@ jobs:
       - check-github-release
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ github.event.repository.name }}
           path: dist
@@ -213,7 +213,7 @@ jobs:
       defined: ${{ steps.token.outputs.defined == 'true' }}
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check if has username
         id: token
         uses: ./.github/actions/check-secret
@@ -228,17 +228,17 @@ jobs:
       - check-npm-token
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Configure publisher
         run: |
           git config user.name "${{ github.event.pusher.name }}"
           git config user.email "${{ github.event.pusher.email }}"
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ github.event.repository.name }}
           path: dist
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
@@ -259,7 +259,7 @@ jobs:
       defined: ${{ steps.username.outputs.defined == 'true' && steps.password.outputs.defined == 'true' }}
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check if has username
         id: username
         uses: ./.github/actions/check-secret
@@ -279,9 +279,9 @@ jobs:
       - check-docker-credentials
     steps:
       - name: Access repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: ${{ github.event.repository.name }}
           path: dist
@@ -293,13 +293,13 @@ jobs:
           version: ${{ needs.bump-version.outputs.version }}
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
