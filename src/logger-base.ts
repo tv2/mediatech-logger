@@ -35,6 +35,7 @@ export class LoggerBase extends Logger {
 
   private log(message: unknown, level: Level, metadata: object): void {
     const log: Log = {
+      timestamp: Date.now(),
       ...metadata,
       level,
       message,

@@ -26,9 +26,13 @@ export class PlainTextFormat extends Format {
   }
 
   protected getTimestamp(log: Log): string {
-    const timestamp = log.timestamp ?? Date.now()
-    const formattedTimestamp = this.dateFormatter.formatTimestamp(timestamp)
-    return `[${ formattedTimestamp }]`
+    if (typeof log.timestamp === 'number') {
+      return `[${this.dateFormatter.formatTimestamp(log.timestamp)}]`
+    }
+    if (!log.timestamp) {
+      return `[${this.dateFormatter.formatTimestamp(Date.now())}]`
+    }
+    return `[${ log.timestamp }]`
   }
 
   protected getSeverity(log: Log): string {
