@@ -1,3 +1,17 @@
+### [2.0.3](https://github.com/tv2/mediatech-logger/compare/v2.0.2...v2.0.3) (2024-12-05)
+
+
+### Bug Fixes
+
+* Adds fallback timestamp in LoggerBase.log to have a consistent timestamp across vaults. ([0674dcb](https://github.com/tv2/mediatech-logger/commit/0674dcbd5030328c8fb57b6f956d41e2e3e80940))
+
+
+### Continuous Integration
+
+* Updates GitHub Action dependency versions. ([191d307](https://github.com/tv2/mediatech-logger/commit/191d307332fd2bcc36d19198a404e61e88e19ba2))
+* Updates GitHub Action dependency versions. ([f099f95](https://github.com/tv2/mediatech-logger/commit/f099f956df7f3ad42573387331c4e8d89f0ab1a5))
+
+
 ### [2.0.2](https://github.com/tv2/mediatech-logger/compare/v2.0.1...v2.0.2) (2023-11-02)
 
 
