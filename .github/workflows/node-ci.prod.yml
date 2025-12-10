@@ -176,7 +176,7 @@ jobs:
           path: dist
       - uses: actions/setup-node@v4
         with:
-          node-version: "16.x"
+          node-version: "24.x"
           registry-url: "https://registry.npmjs.org"
       - name: Ensure that Yarn V3 dependencies are installed
         run: yarn install
