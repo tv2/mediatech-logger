@@ -1,3 +1,24 @@
+## [2.1.0](https://github.com/tv2/mediatech-logger/compare/v2.0.3...v2.1.0) (2025-12-10)
+
+
+### Features
+
+* Adds Log enhancers. ([90bf332](https://github.com/tv2/mediatech-logger/commit/90bf332b5c998bb51d9f3cd7a3c0adb31cfb4580))
+
+
+### Continuous Integration
+
+* Adds read content permission to node-ci.prod workflow. ([45f390a](https://github.com/tv2/mediatech-logger/commit/45f390a135a602d6dd6c116770f77ec31ffec574))
+* Adds repository entry to package.json. ([8a25917](https://github.com/tv2/mediatech-logger/commit/8a25917bec53f04f0f985bda4e9441d7047e510b))
+* Adds write contents permission to node-ci.prod workflow. ([4edeb70](https://github.com/tv2/mediatech-logger/commit/4edeb70508e6655dec0c8d255f5009e0c598dd1c))
+* Depend on bump-version when publishing to get access to the next version. ([ba0cb66](https://github.com/tv2/mediatech-logger/commit/ba0cb66b8f7fb542a4e0de1ad81746951dd2fb4e))
+* NPM publish waits for artifacts to be build. ([9570682](https://github.com/tv2/mediatech-logger/commit/957068202820fd5f0e532200cb11d29c46408d2d))
+* Removes deprecated if-check in node-ci.prod workflow. ([14a5d48](https://github.com/tv2/mediatech-logger/commit/14a5d48095a70d7cf85f3d4810b8ccd59043f011))
+* Use latest version of npm for publishing. ([056d25d](https://github.com/tv2/mediatech-logger/commit/056d25db7e59fc6476e473c539794f6e8dbda53d))
+* Use node_modules linker with Yarn and bump node to 24.x. ([afeb48d](https://github.com/tv2/mediatech-logger/commit/afeb48d9de7d9b5f42a69972c6a1cf5eb8ff9b54))
+* Uses OIDC for NPM publish authentication. ([d3f6343](https://github.com/tv2/mediatech-logger/commit/d3f634354f45696f0964215e20a306094f8650a7))
+
+
 ### [2.0.3](https://github.com/tv2/mediatech-logger/compare/v2.0.2...v2.0.3) (2024-12-05)
 
 
