@@ -31,7 +31,7 @@ on:
 
 permissions:
   id-token: 'write' # Used for NPM publish
-  contents: 'read'
+  contents: 'write'
 
 jobs:
   cache-dependencies:
