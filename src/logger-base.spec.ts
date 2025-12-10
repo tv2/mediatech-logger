@@ -3,6 +3,8 @@ import { Vault } from './vault'
 import { instance, mock, objectContaining, reset, verify } from 'ts-mockito'
 import { Level } from './level'
 import { MetadataLoggerContext } from './metadata-logger-context'
+import {LogEnhancer} from './log-enhancer'
+import {Log} from './log'
 
 const mockVault = mock<Vault>()
 
@@ -142,13 +144,45 @@ function testLogLevel(level: Level): () => void {
 
       verify(mockVault.store(objectContaining(expectedLog))).once()
     })
+
+    describe('when one log enhancer wants to add a property', () => {
+      it('adds the property', () => {
+        const extraProperty = 'my extra property'
+        const message = 'my message'
+        const expectedLog = {level, message, extraProperty}
+
+        const logger = createLogger({ logEnhancers: [(log: Log): Log => ({ ...log, extraProperty })] })
+
+        higherOrderLogFunction(logger[level], message)
+
+        verify(mockVault.store(objectContaining(expectedLog))).once()
+      })
+    })
+
+    describe('when two log enhancer wants to add th same property', () => {
+      it('adds the property of the last enhancer', () => {
+        const firstExtraProperty = 'my extra property'
+        const lastExtraProperty = 'my extra property'
+        const message = 'my message'
+        const expectedLog = {level, message, extraProperty: lastExtraProperty}
+
+        const logEnhancers: LogEnhancer[] = [
+          (log: Log): Log => ({ ...log, extraProperty: firstExtraProperty}),
+          (log: Log): Log => ({ ...log, extraProperty: lastExtraProperty})
+        ]
+
+        const logger = createLogger({ logEnhancers })
+
+        higherOrderLogFunction(logger[level], message)
+
+        verify(mockVault.store(objectContaining(expectedLog))).once()
+      })
+    })
   }
 }
 
-function createLogger(vaults?: Vault[]): LoggerBase {
-  return new LoggerBase(vaults ?? [
-    instance(mockVault)
-  ])
+function createLogger(options: { vaults?: Vault[], logEnhancers?: LogEnhancer[] } = {}): LoggerBase {
+  return new LoggerBase(options.vaults ?? [instance(mockVault)], options.logEnhancers ?? [])
 }
 
 type LogMethod = (message: unknown, metata?: object) => void

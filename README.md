@@ -49,18 +49,24 @@ import {
     ConsoleVault // Vault for writing to console
 } from '@tv2media/logger'
 
-const logger = DefaultLogger([
+const logger = DefaultLogger(
+  [
     new ConsoleVault({
-        level: Level.INFO,
-        format: ColoredPlainTextFormat(),
-        isFormatLocked: false, // Format can be overwritten, e.g. by the EnvironmentLogger.
+      level: Level.INFO,
+      format: ColoredPlainTextFormat(),
+      isFormatLocked: false, // Format can be overwritten, e.g. by the EnvironmentLogger.
     }),
     new FileVault({
-        level: Level.INFO,
-        format: JsontFormat({ isPretty: false }),
-        isFormatLocked: true, // Ensure that EnvironmentLogger doesn't overwrite the format.
+      level: Level.INFO,
+      format: JsontFormat({ isPretty: false }),
+      isFormatLocked: true, // Ensure that EnvironmentLogger doesn't overwrite the format.
     }),
-])
+  ],
+  [
+    (log) => ({ ...log, someExtraProperty: 'My extra property value' }), // Log enhancers can be used to enhance the log right before it is submitted to the vaults.
+    (log) => ({ ...log, message: `Enhanced: ${log.message}` }) // They can also modify existing fields.
+  ]
+)
 
 logger.data('some-data') // Adds the key-value pair { "data": "some-data" } to a new log context.
 logger.tag('some-tag') // Adds the key-value pair { "tag": "some-tag" } to a new log context.

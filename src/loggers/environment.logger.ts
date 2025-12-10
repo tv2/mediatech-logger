@@ -1,18 +1,24 @@
 import { Environment } from '../environment'
 import { Format } from '../format'
-import { JsonFormat } from '../formats/json.format'
+import { JsonFormat } from '../formats'
 import { LoggerBase } from '../logger-base'
 import { Level } from '../level'
 import { Vault } from '../vault'
 import { ColoredPlainTextFormat } from '../formats/colored-plain-text.format'
+import { LogEnhancer } from '../log-enhancer'
 
 export class EnvironmentLogger extends LoggerBase {
 
   private readonly environment: Environment
   private level: Level
 
-  constructor(vaults: Vault[], environment: Environment, level: Level) {
-    super(vaults)
+  constructor(
+    vaults: Vault[],
+    logEnhancers: LogEnhancer[],
+    environment: Environment,
+    level: Level
+  ) {
+    super(vaults, logEnhancers)
 
     this.environment = environment
     this.level = level

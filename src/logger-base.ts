@@ -3,14 +3,15 @@ import { Log } from './log'
 import { Level } from './level'
 import { Vault } from './vault'
 import { MetadataLoggerContext } from './metadata-logger-context'
+import { LogEnhancer } from './log-enhancer'
 
 export class LoggerBase extends Logger {
 
-  protected readonly vaults: Vault[]
-
-  constructor(vaults: Vault[]) {
+  constructor(
+    protected readonly vaults: Vault[],
+    protected readonly logEnhancers: LogEnhancer[] = []
+  ) {
     super()
-    this.vaults = vaults
   }
 
   public error(message: unknown, metadata: object = {}): void {
@@ -40,7 +41,8 @@ export class LoggerBase extends Logger {
       level,
       message,
     }
-    this.vaults.forEach(vault => vault.store(log))
+    const enhancedLog: Log = this.logEnhancers.reduce((logToEnhance, logEnhancer) => logEnhancer(logToEnhance), log)
+    this.vaults.forEach(vault => vault.store(enhancedLog))
   }
 
   public metadata(metadata: object): Logger {
