@@ -183,7 +183,6 @@ jobs:
         shell: bash
       - name: Set package.json version
         run: yarn version "${{ needs.bump-version.outputs.version }}"
+      - run: npm i -g npm@latest
       - name: Publish package
-        run: yarn npm publish --access=public --tag latest
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access=public --tag latest
