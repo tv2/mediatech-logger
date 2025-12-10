@@ -160,7 +160,6 @@ jobs:
 
   publish-npm-package:
     runs-on: ubuntu-latest
-    if: needs.check-npm-token.outputs.defined == 'true'
     needs:
       - bump-version
     steps:
